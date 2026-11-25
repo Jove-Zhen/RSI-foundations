@@ -23,7 +23,7 @@ Fig. 1 下半部分给出 Hyperagents 的修改和执行流程。一个 hyperage
 令 $`H_t=(A_t,M_t)`$ 表示第 $`t`$ 轮选中的父代。$`A_t`$ 执行任务，$`M_t`$ 读取代理代码与历史反馈 $`\ell_t`$，产生代码差分 $`\Delta_t`$。应用差分得到后继 $`\tilde H_t`$。
 
 ```math
-\Delta_t=M_t(\operatorname{Code}(H_t),\ell_t),\qquad\tilde H_t=\operatorname{Apply}(H_t,\Delta_t).
+\Delta_t=M_t(\mathrm{Code}(H_t),\ell_t),\qquad\tilde H_t=\mathrm{Apply}(H_t,\Delta_t).
 ```
 
 ![Hyperagents 的任务程序与修改程序](../../Figures/representative/hyperagents_method.png)

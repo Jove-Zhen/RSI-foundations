@@ -23,7 +23,7 @@ The bottom half of Fig. 1 shows the Hyperagents loop. A hyperagent has a task pr
 Let $`H_t=(A_t,M_t)`$ be the parent selected in round $`t`$. The task program $`A_t`$ executes tasks. The modification program $`M_t`$ reads the agent code and historical feedback $`\ell_t`$ and produces a code diff $`\Delta_t`$. Applying the diff yields the successor $`\tilde H_t`$.
 
 ```math
-\Delta_t=M_t(\operatorname{Code}(H_t),\ell_t),\qquad\tilde H_t=\operatorname{Apply}(H_t,\Delta_t).
+\Delta_t=M_t(\mathrm{Code}(H_t),\ell_t),\qquad\tilde H_t=\mathrm{Apply}(H_t,\Delta_t).
 ```
 
 ![Tasks and modifications for Hyperagents](../Figures/representative/hyperagents_method.png)

@@ -85,7 +85,7 @@ On the same 24 point, you take two counts and do four operations, get one number
 =\{[s,z]:s\in\mathcal F_i,\ z\in G(p_\theta,s,K)\},
 \qquad
 \mathcal F_{i+1}
-=\operatorname{Top}_{b}\bigl(\mathcal F'_{i+1};V_{i+1}\bigr).
+=\mathrm{Top}_{b}\bigl(\mathcal F'_{i+1};V_{i+1}\bigr).
 ```
 
 | Symbol | Meaning |
@@ -95,7 +95,7 @@ On the same 24 point, you take two counts and do four operations, get one number
 | $`p_\theta,\ G(p_\theta,s,K)`$ | $`p_\theta`$ It's a fixed parameter. $`\theta`$ is the language model. $`G`$ Use it as a node. $`s`$ It's a good idea. $`K`$ is the maximum number of candidates per node, as recorded in the original language $`k`$ . |
 | $`z,\ [s,z]`$ | $`z`$ It's a new operation. Get it to the father's node. $`s`$ And then get the subpoint. $`[s,z]`$ . |
 | $`\mathcal F'_{i+1}`$ | A new layer of candidates is all to be screened. $`\in`$ Read "becomes". |
-| $`V_{i+1},\ \operatorname{Top}_{b},\ \mathcal F_{i+1}`$ | $`V_{i+1}`$ Estimating the solvency of the various nodes in this layer. $`\operatorname{Top}_b`$ Up to the value. $`b`$ One. $`\mathcal F_{i+1}`$ It's the nodes that remain. |
+| $`V_{i+1},\ \mathrm{Top}_{b},\ \mathcal F_{i+1}`$ | $`V_{i+1}`$ Estimating the solvency of the various nodes in this layer. $`\mathrm{Top}_b`$ Up to the value. $`b`$ One. $`\mathcal F_{i+1}`$ It's the nodes that remain. |
 
 **Take the first layer.** Enter $`x=(4,9,10,13)`$, which is only available on the 0th floor. $`G`$ You can propose two kinds of calculations in the diagram, one of which is $`10-4=6`$ (remains) $`6,9,13`$ And the other is... $`4+9=13`$ (remains) $`10,13,13`$ ). Both enter first $`\mathcal F'_1`$. If only one ( $`b=1`$ And the valuation puts the first one in front, and it goes in. $`\mathcal F_1`$ . Let's do it again. $`13-9=4`$ Again. $`6\times4=24`$ , can restore compliance level by level. The screening here is an example, with a maximum of five states for each layer of the original master experiment and three valuations for each candidate.
 
@@ -126,7 +126,7 @@ The top example saves a completed game action program and is described by GPT-3.
 **Retrieval and writing library.** For each object of exploration, give the program found in the old library to the generator and see if the new program is accepted by the target. Here is the formting of Fig.4.
 
 ```math
-R_i=\operatorname{Retrieve}(\mathcal K_i,x_i,o_i),\qquad
+R_i=\mathrm{Retrieve}(\mathcal K_i,x_i,o_i),\qquad
 \mathcal K_{i+1}=\mathcal K_i\cup\{(c_i,\mathrm{desc}(c_i))\}
 \quad\text{ (if the program passes acceptance)}.
 ```
@@ -135,7 +135,7 @@ R_i=\operatorname{Retrieve}(\mathcal K_i,x_i,o_i),\qquad
 | --- | --- | --- |
 | $`i,\ x_i,\ o_i`$ | $`i`$ We're not going to be able to do this. $`x_i`$ This is the current goal. $`o_i`$ It is an environmental observation or feedback available at the time of retrieval. | The target is a barber, the input includes the current inventory or previous failures. |
 | $`\mathcal K_i,\ R_i`$ | $`\mathcal K_i`$ This is the skills bank that begins with this goal. $`R_i`$ It's the skills that are identified for the generator. | The process of molten insomnia, wooden sticks and tools of production was identified. |
-| $`\operatorname{Retrieve}`$ | Retrieval of candidate skills using task and current feedback to query the skills bank. | Comparing query and skill description vector similarities. |
+| $`\mathrm{Retrieve}`$ | Retrieval of candidate skills using task and current feedback to query the skills bank. | Comparing query and skill description vector similarities. |
 | $`c_i,\ \mathrm{desc}(c_i)`$ | A description of the new code for the target and the text to be used for retrieval. | Prepare iron-clad programs, if the practices and codes are preserved through acceptance and inspection. |
 | $`\mathcal K_{i+1},\ \cup`$ | The new library is merged between the original entries and those that are allowed to join. | The old bank continued to exist, with new iron-cracking skills being introduced at the time of acceptance. |
 
