@@ -163,11 +163,11 @@ SkillBank 结合通用策略、任务流程与错误提醒。公开 ALFWorld 库
 - [源码 env_manager.py](https://github.com/aiming-lab/SkillRL/blob/4d984d455b9b02f0bad283cbe9ab3d66a7e5b89d/agent_system/environments/env_manager.py)
 - [源码 distill_alfworld.py](https://github.com/aiming-lab/SkillRL/blob/4d984d455b9b02f0bad283cbe9ab3d66a7e5b89d/examples/sft_data_generation/distillation/distill_alfworld.py)
 
-用 $h_t$ 表示截至第 $t$ 步的交互历史，$d$ 表示任务描述，$S_g$ 表示通用技能，$S_{\mathrm{ret}}$ 表示检索到的任务技能。策略 $\pi_\theta$ 从给定上下文生成动作 $a_t$。
+用 $`h_t`$ 表示截至第 $`t`$ 步的交互历史，$`d`$ 表示任务描述，$`S_g`$ 表示通用技能，$`S_{\mathrm{ret}}`$ 表示检索到的任务技能。策略 $`\pi_\theta`$ 从给定上下文生成动作 $`a_t`$。
 
-$$
+```math
 a_t\sim\pi_\theta(\cdot\mid h_t,d,S_g,S_{\mathrm{ret}}).
-$$
+```
 
 ## 技能条件下的策略训练
 

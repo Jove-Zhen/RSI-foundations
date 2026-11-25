@@ -20,11 +20,11 @@ Fig. 1 下半部分给出 Hyperagents 的修改和执行流程。一个 hyperage
 - [Hyperagents §3、A.3、A.5](https://arxiv.org/pdf/2603.19461v2#page=4)
 - [主循环实现](https://github.com/facebookresearch/HyperAgents/blob/59a68f672dfb92c74aeb7e61535d776fb36e172d/generate_loop.py)
 
-令 $H_t=(A_t,M_t)$ 表示第 $t$ 轮选中的父代。$A_t$ 执行任务，$M_t$ 读取代理代码与历史反馈 $\ell_t$，产生代码差分 $\Delta_t$。应用差分得到后继 $\tilde H_t$。
+令 $`H_t=(A_t,M_t)`$ 表示第 $`t`$ 轮选中的父代。$`A_t`$ 执行任务，$`M_t`$ 读取代理代码与历史反馈 $`\ell_t`$，产生代码差分 $`\Delta_t`$。应用差分得到后继 $`\tilde H_t`$。
 
-$$
+```math
 \Delta_t=M_t(\operatorname{Code}(H_t),\ell_t),\qquad\tilde H_t=\operatorname{Apply}(H_t,\Delta_t).
-$$
+```
 
 ![Hyperagents 的任务程序与修改程序](../../Figures/representative/hyperagents_method.png)
 

@@ -163,11 +163,11 @@ Open Environment reminder template; papers §3.3
 - [Source env_manager.py](https://github.com/aiming-lab/SkillRL/blob/4d984d455b9b02f0bad283cbe9ab3d66a7e5b89d/agent_system/environments/env_manager.py)
 - [Sourcedistill_alfworld.py](https://github.com/aiming-lab/SkillRL/blob/4d984d455b9b02f0bad283cbe9ab3d66a7e5b89d/examples/sft_data_generation/distillation/distill_alfworld.py)
 
-Use $h_t$ as at $t$ The interactive history of the steps. $d$ This post is part of our special coverage Syria Elections 2011. $S_g$ It's a common skill. $S_{\mathrm{ret}}$ is the mission skills that are retrieved. $\pi_\theta$ Generate an action from the given context $a_t$ .
+Use $`h_t`$ as at $`t`$ The interactive history of the steps. $`d`$ This post is part of our special coverage Syria Elections 2011. $`S_g`$ It's a common skill. $`S_{\mathrm{ret}}`$ is the mission skills that are retrieved. $`\pi_\theta`$ Generate an action from the given context $`a_t`$ .
 
-$$
+```math
 a_t\sim\pi_\theta(\cdot\mid h_t,d,S_g,S_{\mathrm{ret}}).
-$$
+```
 
 ## Skill-conditioned policy training
 

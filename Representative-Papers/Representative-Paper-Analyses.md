@@ -1,8 +1,8 @@
 # Representative RSI Papers: Figures, Equations, and Experimental Setups
 
-The papers are grouped by four objects of change: behavior, agent systems, models and data, and research processes. Each group pairs a representative method with related work for comparison. Start with the problem and experimental setup, then read the notation and worked examples alongside the equations. The four main cases are **Self-Refine, Darwin Gödel Machine (DGM), STaR (Self-Taught Reasoner), and The AI Scientist**. The four comparisons are **Tree of Thoughts, AFlow, AlphaGo Zero, and Frontis-MA1 / OpenMLE-Evo**. Citations identify equations taken from the papers, and additional equations derived from the workflows are marked separately. As in the survey, $t$ indexes improvement rounds. Each section specifies whether other subscripts count steps, tasks, or candidates. [RSI Foundations](../RSI-Foundations.md)
+The papers are grouped by four objects of change: behavior, agent systems, models and data, and research processes. Each group pairs a representative method with related work for comparison. Start with the problem and experimental setup, then read the notation and worked examples alongside the equations. The four main cases are **Self-Refine, Darwin Gödel Machine (DGM), STaR (Self-Taught Reasoner), and The AI Scientist**. The four comparisons are **Tree of Thoughts, AFlow, AlphaGo Zero, and Frontis-MA1 / OpenMLE-Evo**. Citations identify equations taken from the papers, and additional equations derived from the workflows are marked separately. As in the survey, $`t`$ indexes improvement rounds. Each section specifies whether other subscripts count steps, tasks, or candidates. [RSI Foundations](../RSI-Foundations.md)
 
-Start with the inputs and outputs of the task, then identify which state the improvement round changes. In the survey, $P$ proposes a candidate, $E$ executes it, $V$ produces verification evidence, and $U$ determines what to retain and update. Trace these operations through the figure to distinguish changes inside a task from inheritance across rounds. The experimental setup gives the model, data, budget, and comparisons. When reading results, use Section 6 of RSI Foundations to distinguish data used for training, search and version selection, and independent evaluation. Identify which score the paper actually reports. The alternative designs suggested here test competing explanations. [Survey Fig. 3, Fig. 5, and Table 1](https://lee1003-lee.github.io/Awesome-RSI-Research/assets/rsi-survey.pdf#page=5)
+Start with the inputs and outputs of the task, then identify which state the improvement round changes. In the survey, $`P`$ proposes a candidate, $`E`$ executes it, $`V`$ produces verification evidence, and $`U`$ determines what to retain and update. Trace these operations through the figure to distinguish changes inside a task from inheritance across rounds. The experimental setup gives the model, data, budget, and comparisons. When reading results, use Section 6 of RSI Foundations to distinguish data used for training, search and version selection, and independent evaluation. Identify which score the paper actually reports. The alternative designs suggested here test competing explanations. [Survey Fig. 3, Fig. 5, and Table 1](https://lee1003-lee.github.io/Awesome-RSI-Research/assets/rsi-survey.pdf#page=5)
 
 Related analyses cover [SkillRL](SkillRL.md) and [Hyperagents](Hyperagents.md). See the [bibliography](#paper-titles-and-sources) for the full paper titles and source links.
 
@@ -16,33 +16,33 @@ Related analyses cover [SkillRL](SkillRL.md) and [Hyperagents](Hyperagents.md). 
 
 ![Self-Refine Fig. 1. Role of the same model in generation, evaluation and revision](../Figures/representative/self-refine_fig01_loop.png)
 
-*Original Fig. 1, PDF p. 2. Central. $M$ It's the same model, and the right and left rings give it different tasks.* [Original Chart Page](https://proceedings.neurips.cc/paper_files/paper/2023/file/91edff07232fb1b55a505a9e9f6c0ff3-Paper-Conference.pdf#page=2)
+*Original Fig. 1, PDF p. 2. Central. $`M`$ It's the same model, and the right and left rings give it different tasks.* [Original Chart Page](https://proceedings.neurips.cc/paper_files/paper/2023/file/91edff07232fb1b55a505a9e9f6c0ff3-Paper-Conference.pdf#page=2)
 
 #### Fig. 1 in equations: what each of the three calls receives
 
-Gives a single question and fixes the same model. The 0 in the diagram writes a first draft, 1 comments on the current draft, 2 revises it by the point. The Self-Refine (1), (2), (4) is used. $i$ Counts the number of revisions to the same subject. $t$ Count this number.
+Gives a single question and fixes the same model. The 0 in the diagram writes a first draft, 1 comments on the current draft, 2 revises it by the point. The Self-Refine (1), (2), (4) is used. $`i`$ Counts the number of revisions to the same subject. $`t`$ Count this number.
 
-$$
+```math
 \begin{aligned}
-y_0 &= M(p_{\mathrm{gen}}\Vert x),\\
-f_i &= M(p_{\mathrm{fb}}\Vert x\Vert y_i),\\
+y_0 &= M(p_{\mathrm{gen}}\Vert x),\\[0pt]
+f_i &= M(p_{\mathrm{fb}}\Vert x\Vert y_i),\\[0pt]
 y_{i+1} &= M(p_{\mathrm{refine}}\Vert x\Vert y_0\Vert f_0
                    \Vert\cdots\Vert y_i\Vert f_i).
 \end{aligned}
-$$
+```
 
 | Symbol | Meaning | In the original Fig. 2 code case |
 | --- | --- | --- |
-| $x$ | Cannot change task input. | Request 1 to a non-negative integer sum. |
-| $M$ | The same fixed model for three roles. $M(\text{input})$ represents the input call model and returns the text. | To assign different tasks to the same model with the creation, evaluation or revision of the reminder. |
-| $i,\ y_0,\ y_i,\ y_{i+1}$ | $i$ Several revisions have been completed. $y_0$ It's a first draft. $y_i$ It's the current draft. $y_{i+1}$ This is the next draft based on the current points. | The first draft uses a loop search, and the revised version uses a reconciliation formula. |
-| $f_i$ | For the first time, $i$ A review of the draft. It's written. $fb$ . | $f_0$ Indicates that the cycle increases with input and recommends closed search for peace. |
-| $p_{\mathrm{gen}},\ p_{\mathrm{fb}},\ p_{\mathrm{refine}}$ | Three reminders are used in turn for the generation, evaluation and revision of the first draft. | Each requires a solution, an inefficient location, and a rewriting as suggested. |
-| $\Vert,\ \cdots$ | $\Vert$ Indicates the sequential spelling of the text, and the ellipsis indicates that the intermediate drafts and the corresponding comments are taken up. | First revision only first draft $y_0$ And comments $f_0$ After that, history grew. |
+| $`x`$ | Cannot change task input. | Request 1 to a non-negative integer sum. |
+| $`M`$ | The same fixed model for three roles. $`M(\text{input})`$ represents the input call model and returns the text. | To assign different tasks to the same model with the creation, evaluation or revision of the reminder. |
+| $`i,\ y_0,\ y_i,\ y_{i+1}`$ | $`i`$ Several revisions have been completed. $`y_0`$ It's a first draft. $`y_i`$ It's the current draft. $`y_{i+1}`$ This is the next draft based on the current points. | The first draft uses a loop search, and the revised version uses a reconciliation formula. |
+| $`f_i`$ | For the first time, $`i`$ A review of the draft. It's written. $`fb`$ . | $`f_0`$ Indicates that the cycle increases with input and recommends closed search for peace. |
+| $`p_{\mathrm{gen}},\ p_{\mathrm{fb}},\ p_{\mathrm{refine}}`$ | Three reminders are used in turn for the generation, evaluation and revision of the first draft. | Each requires a solution, an inefficient location, and a rewriting as suggested. |
+| $`\Vert,\ \cdots`$ | $`\Vert`$ Indicates the sequential spelling of the text, and the ellipsis indicates that the intermediate drafts and the corresponding comments are taken up. | First revision only first draft $`y_0`$ And comments $`f_0`$ After that, history grew. |
 
-**Line by Line.** First line reading task and generating hints, obtained in loop $y_0$ . Second row order. $i=0$ Read this loop code and get some comments. $f_0$ . In the third line, the original, first drafts and comments are sent to the revised call, and the formulae is available. $y_1$ . If you're going to continue, the second line will comment. $y_1$ . Original (3) Only current drafts and current points comments, model (4) to spell history into input.
+**Line by Line.** First line reading task and generating hints, obtained in loop $`y_0`$ . Second row order. $`i=0`$ Read this loop code and get some comments. $`f_0`$ . In the third line, the original, first drafts and comments are sent to the revised call, and the formulae is available. $`y_1`$ . If you're going to continue, the second line will comment. $`y_1`$ . Original (3) Only current drafts and current points comments, model (4) to spell history into input.
 
-Process $\mathrm{stop}(f_i,i)$ determines when to return to the final draft based on the current evaluation and frequency. A complete re-evaluation usually adds two calls, and may end with a stop-point evaluation. The feedback in the diagram is the basis for a rewriting of the subject, and the paper uses a process to test or evaluate the delivery results. **Local Evolution**. [Self-Refine §2, Mode (1)-(4) and Fig.2](https://proceedings.neurips.cc/paper_files/paper/2023/file/91edff07232fb1b55a505a9e9f6c0ff3-Paper-Conference.pdf#page=3)
+Process $`\mathrm{stop}(f_i,i)`$ determines when to return to the final draft based on the current evaluation and frequency. A complete re-evaluation usually adds two calls, and may end with a stop-point evaluation. The feedback in the diagram is the basis for a rewriting of the subject, and the paper uses a process to test or evaluate the delivery results. **Local Evolution**. [Self-Refine §2, Mode (1)-(4) and Fig.2](https://proceedings.neurips.cc/paper_files/paper/2023/file/91edff07232fb1b55a505a9e9f6c0ff3-Paper-Conference.pdf#page=3)
 
 #### Worked case: what information does the feedback add?
 
@@ -50,7 +50,7 @@ Process $\mathrm{stop}(f_i,i)$ determines when to return to the final draft base
 
 *Original Fig. 2, PDF p. 3. Up and down are the code. Both rows read from left to right by first draft, by count, by revision.* [Original Chart Page](https://proceedings.neurips.cc/paper_files/paper/2023/file/91edff07232fb1b55a505a9e9f6c0ff3-Paper-Conference.pdf#page=3)
 
-Look down in row (d)-(f). **Problem **is sought from 1 to non-negative integer $n$. **First draft **Added by item, for example $n=5$ Will walk around the circle to get 15. **Comments **Indicates that the number of actions added to repeat add-ons increases with $n$, and then gives an enforceable direction to change to the formula. **Revision **Turn it into... $n(n+1)/2$ Inheritance 5 is still 15. Here it is important to separate the entry boundaries, the correctness and the speed of the results, and the formula is short enough to indicate that the change has been achieved. The original figure shows how this evaluation has led to the changes, and the optimal proportion of the task in the whole series has been tested later. The top line provides another feedback. The same line of dialogue answers can be free of factual errors, but not responsive to the specific interests of the user, so the stocktaking can indicate what should be added. [Original Fig. 2, §3.2 and Appendix Q](https://proceedings.neurips.cc/paper_files/paper/2023/file/91edff07232fb1b55a505a9e9f6c0ff3-Paper-Conference.pdf#page=3)
+Look down in row (d)-(f). **Problem **is sought from 1 to non-negative integer $`n`$. **First draft **Added by item, for example $`n=5`$ Will walk around the circle to get 15. **Comments **Indicates that the number of actions added to repeat add-ons increases with $`n`$, and then gives an enforceable direction to change to the formula. **Revision **Turn it into... $`n(n+1)/2`$ Inheritance 5 is still 15. Here it is important to separate the entry boundaries, the correctness and the speed of the results, and the formula is short enough to indicate that the change has been achieved. The original figure shows how this evaluation has led to the changes, and the optimal proportion of the task in the whole series has been tested later. The top line provides another feedback. The same line of dialogue answers can be free of factual errors, but not responsive to the specific interests of the user, so the stocktaking can indicate what should be added. [Original Fig. 2, §3.2 and Appendix Q](https://proceedings.neurips.cc/paper_files/paper/2023/file/91edff07232fb1b55a505a9e9f6c0ff3-Paper-Conference.pdf#page=3)
 
 **Why is it so designed.** An initial evaluation allows the reviser to be misplaced and modified to fit the " error-placeable, modified executable" task. If the model does not find the error, repeats the error or destroys the original part. The failure information from the running test can be sent to the pointer, the algorithm can be checked with an independent tool, or the same budget can be used to generate several candidates, which can then be selected by the independent verifier. The latter approach does not require accurate diagnosis, but requires a reliable selection of candidates. Stop is also a design, mathematical or program task can be seen to be stopped by validation, and open tasks may depend only on the point evaluation or a predetermined ceiling. [Original §4 with Appendix K, Q](https://proceedings.neurips.cc/paper_files/paper/2023/file/91edff07232fb1b55a505a9e9f6c0ff3-Paper-Conference.pdf#page=6) · [CRITIC Original paper](https://arxiv.org/abs/2305.11738)
 
@@ -64,7 +64,7 @@ Use the group GPT-4 as an example, code optimized from **27.3% to 36.0%**Increas
 
 ![Self-Refine Fig. 4. How much more score per round and change](../Figures/representative/self-refine_fig04_iterations.png)
 
-*Original Fig. 4, PDF page 7. Left table as first draft $y_0$ To third revision $y_3$ . For the third time in the drawing, the main experiment has a process cap of four rounds. $\Delta(y_i\to y_{i+1})$ It is the fraction of the latter draft that reduces the score of the previous one. The three abbreviations are code optimization (C. Opt.), constraint generation (C. Gen.), emotional inversion (S. Rev.). The average of each of the three models is taken.* [Original Chart Page](https://proceedings.neurips.cc/paper_files/paper/2023/file/91edff07232fb1b55a505a9e9f6c0ff3-Paper-Conference.pdf#page=7)
+*Original Fig. 4, PDF page 7. Left table as first draft $`y_0`$ To third revision $`y_3`$ . For the third time in the drawing, the main experiment has a process cap of four rounds. $`\Delta(y_i\to y_{i+1})`$ It is the fraction of the latter draft that reduces the score of the previous one. The three abbreviations are code optimization (C. Opt.), constraint generation (C. Gen.), emotional inversion (S. Rev.). The average of each of the three models is taken.* [Original Chart Page](https://proceedings.neurips.cc/paper_files/paper/2023/file/91edff07232fb1b55a505a9e9f6c0ff3-Paper-Conference.pdf#page=7)
 
 When reading the right chart, the column should not be considered as the final score. Code optimization 22.0, 27.0, 27.9, 28.8 corresponds to three increases of 5.0, 0.9, 0.9. The first two constraints were produced with significant gains and the third one was still increasing. It supports the "wink-to-task" approach. It does not make any difference from averages. A more solid assessment can be based on the same initials, comparing sampling and point-to-point revisions with the same use and input output costs, and reporting how many of the questions are wrong, how many are wrong, and where it is best calculated to stop. **An introduction to RSI **It is to separate the generation, error, revision and acceptance. The feedback here is only to advance the subject, so it is mainly to support local evolution. [Original §4, Fig. 4](https://proceedings.neurips.cc/paper_files/paper/2023/file/91edff07232fb1b55a505a9e9f6c0ff3-Paper-Conference.pdf#page=7) · [General Table 1](https://lee1003-lee.github.io/Awesome-RSI-Research/assets/rsi-survey.pdf#page=17)
 
@@ -80,32 +80,32 @@ Self-Refine gets a full answer and fixes it. **If the error of the first step ma
 
 On the same 24 point, you take two counts and do four operations, get one number, and put it back in the remaining number. Search the nodes on the tree to record the calculations that have already been performed. Press TOT Algorithm 1 to write how to generate and filter the layer.
 
-$$
+```math
 \mathcal F'_{i+1}
 =\{[s,z]:s\in\mathcal F_i,\ z\in G(p_\theta,s,K)\},
 \qquad
 \mathcal F_{i+1}
 =\operatorname{Top}_{b}\bigl(\mathcal F'_{i+1};V_{i+1}\bigr).
-$$
+```
 
 | Symbol | Meaning |
 | --- | --- |
-| $i,\ x,\ z_{1:i},\ s$ | $i$ It's the number of operations that have been done. $x$ It's four input numbers. $z_{1:i}$ Step 1 to step 1 $i$ The history of the operation, $s=[x,z_{1:i}]$ is a node of both. |
-| $\mathcal F_i$ | Article $i$ The nodes that are left in the layer are assembled. The 0th layer is the original. |
-| $p_\theta,\ G(p_\theta,s,K)$ | $p_\theta$ It's a fixed parameter. $\theta$ is the language model. $G$ Use it as a node. $s$ It's a good idea. $K$ is the maximum number of candidates per node, as recorded in the original language $k$ . |
-| $z,\ [s,z]$ | $z$ It's a new operation. Get it to the father's node. $s$ And then get the subpoint. $[s,z]$ . |
-| $\mathcal F'_{i+1}$ | A new layer of candidates is all to be screened. $\in$ Read "becomes". |
-| $V_{i+1},\ \operatorname{Top}_{b},\ \mathcal F_{i+1}$ | $V_{i+1}$ Estimating the solvency of the various nodes in this layer. $\operatorname{Top}_b$ Up to the value. $b$ One. $\mathcal F_{i+1}$ It's the nodes that remain. |
+| $`i,\ x,\ z_{1:i},\ s`$ | $`i`$ It's the number of operations that have been done. $`x`$ It's four input numbers. $`z_{1:i}`$ Step 1 to step 1 $`i`$ The history of the operation, $`s=[x,z_{1:i}]`$ is a node of both. |
+| $`\mathcal F_i`$ | Article $`i`$ The nodes that are left in the layer are assembled. The 0th layer is the original. |
+| $`p_\theta,\ G(p_\theta,s,K)`$ | $`p_\theta`$ It's a fixed parameter. $`\theta`$ is the language model. $`G`$ Use it as a node. $`s`$ It's a good idea. $`K`$ is the maximum number of candidates per node, as recorded in the original language $`k`$ . |
+| $`z,\ [s,z]`$ | $`z`$ It's a new operation. Get it to the father's node. $`s`$ And then get the subpoint. $`[s,z]`$ . |
+| $`\mathcal F'_{i+1}`$ | A new layer of candidates is all to be screened. $`\in`$ Read "becomes". |
+| $`V_{i+1},\ \operatorname{Top}_{b},\ \mathcal F_{i+1}`$ | $`V_{i+1}`$ Estimating the solvency of the various nodes in this layer. $`\operatorname{Top}_b`$ Up to the value. $`b`$ One. $`\mathcal F_{i+1}`$ It's the nodes that remain. |
 
-**Take the first layer.** Enter $x=(4,9,10,13)$, which is only available on the 0th floor. $G$ You can propose two kinds of calculations in the diagram, one of which is $10-4=6$ (remains) $6,9,13$ And the other is... $4+9=13$ (remains) $10,13,13$ ). Both enter first $\mathcal F'_1$. If only one ( $b=1$ And the valuation puts the first one in front, and it goes in. $\mathcal F_1$ . Let's do it again. $13-9=4$ Again. $6\times4=24$ , can restore compliance level by level. The screening here is an example, with a maximum of five states for each layer of the original master experiment and three valuations for each candidate.
+**Take the first layer.** Enter $`x=(4,9,10,13)`$, which is only available on the 0th floor. $`G`$ You can propose two kinds of calculations in the diagram, one of which is $`10-4=6`$ (remains) $`6,9,13`$ And the other is... $`4+9=13`$ (remains) $`10,13,13`$ ). Both enter first $`\mathcal F'_1`$. If only one ( $`b=1`$ And the valuation puts the first one in front, and it goes in. $`\mathcal F_1`$ . Let's do it again. $`13-9=4`$ Again. $`6\times4=24`$ , can restore compliance level by level. The screening here is an example, with a maximum of five states for each layer of the original master experiment and three valuations for each candidate.
 
 The right-hand extension hint for the left-hand corresponding chart, the right-hand counterpart to the lower-right valuation and the left-side filter. The middle-valued search is done, and the answer is found again equal to 24 cards and is used once for each card. This is the same input as the acceptance check in the RSI base document, where ToT delivers the answer to this question. [TOT Algorithm 1, Fig. 2 and §4.1](https://proceedings.neurips.cc/paper_files/paper/2023/file/271db9922b8d1f4dd7aaef84ed5ac703-Paper-Conference.pdf#page=5)
 
 ![TOT Table 2 and Fig. 3. Method success rates, nodes accesses and failed steps](../Figures/representative/tot_table02_fig03_results.png)
 
-*Original Table 2, Fig 3, PDF p. 6. $k$ is the sample number or the revised ceiling, with different lines of meaning. Figure (a) The horizontal axis is the number of nodes, and the calculation of the cost depends on the manner in which each node is called. Figure (b) divides the failure into the step where the problem arises.* [Original Chart Page](https://proceedings.neurips.cc/paper_files/paper/2023/file/271db9922b8d1f4dd7aaef84ed5ac703-Paper-Conference.pdf#page=6)
+*Original Table 2, Fig 3, PDF p. 6. $`k`$ is the sample number or the revised ceiling, with different lines of meaning. Figure (a) The horizontal axis is the number of nodes, and the calculation of the cost depends on the manner in which each node is called. Figure (b) divides the failure into the step where the problem arises.* [Original Chart Page](https://proceedings.neurips.cc/paper_files/paper/2023/file/271db9922b8d1f4dd7aaef84ed5ac703-Paper-Conference.pdf#page=6)
 
-Cot (chain of thought) allows the model to write a complete question-solving process at a time, with an average success rate of 4.0 per cent, a majority vote of 9.0 per cent for 100 chain of reasoning output, with direct transmission of correct signals re-modified 27 per cent, ToT $b=1$ and $b=5$ 45% and 74%, respectively. Cot's best of 100 is the ideal caliber. Forty-nine percent of the test questions were able to find at least one correct solution in every 100 samples. The actual delivery of the volume still needs to be able to identify it. Back to the component, 24 points could be spent on legal calculations, replacing model valuations with precise checks. This is a direct option to distinguish "problem searchable" from "problematic model search". The original set-up tree is used for the current theme, comparing the conclusions to local evolution. [Original Table 2 and Fig. 3, Appendix C](https://proceedings.neurips.cc/paper_files/paper/2023/file/271db9922b8d1f4dd7aaef84ed5ac703-Paper-Conference.pdf#page=6)
+Cot (chain of thought) allows the model to write a complete question-solving process at a time, with an average success rate of 4.0 per cent, a majority vote of 9.0 per cent for 100 chain of reasoning output, with direct transmission of correct signals re-modified 27 per cent, ToT $`b=1`$ and $`b=5`$ 45% and 74%, respectively. Cot's best of 100 is the ideal caliber. Forty-nine percent of the test questions were able to find at least one correct solution in every 100 samples. The actual delivery of the volume still needs to be able to identify it. Back to the component, 24 points could be spent on legal calculations, replacing model valuations with precise checks. This is a direct option to distinguish "problem searchable" from "problematic model search". The original set-up tree is used for the current theme, comparing the conclusions to local evolution. [Original Table 2 and Fig. 3, Appendix C](https://proceedings.neurips.cc/paper_files/paper/2023/file/271db9922b8d1f4dd7aaef84ed5ac703-Paper-Conference.pdf#page=6)
 
 ### 1.3 Voyager: using failures to repair programs and successes to compose skills
 
@@ -125,19 +125,19 @@ The top example saves a completed game action program and is described by GPT-3.
 
 **Retrieval and writing library.** For each object of exploration, give the program found in the old library to the generator and see if the new program is accepted by the target. Here is the formting of Fig.4.
 
-$$
+```math
 R_i=\operatorname{Retrieve}(\mathcal K_i,x_i,o_i),\qquad
 \mathcal K_{i+1}=\mathcal K_i\cup\{(c_i,\mathrm{desc}(c_i))\}
 \quad\text{ (if the program passes acceptance)}.
-$$
+```
 
 | Symbol | Meaning | An example of making a shovel. |
 | --- | --- | --- |
-| $i,\ x_i,\ o_i$ | $i$ We're not going to be able to do this. $x_i$ This is the current goal. $o_i$ It is an environmental observation or feedback available at the time of retrieval. | The target is a barber, the input includes the current inventory or previous failures. |
-| $\mathcal K_i,\ R_i$ | $\mathcal K_i$ This is the skills bank that begins with this goal. $R_i$ It's the skills that are identified for the generator. | The process of molten insomnia, wooden sticks and tools of production was identified. |
-| $\operatorname{Retrieve}$ | Retrieval of candidate skills using task and current feedback to query the skills bank. | Comparing query and skill description vector similarities. |
-| $c_i,\ \mathrm{desc}(c_i)$ | A description of the new code for the target and the text to be used for retrieval. | Prepare iron-clad programs, if the practices and codes are preserved through acceptance and inspection. |
-| $\mathcal K_{i+1},\ \cup$ | The new library is merged between the original entries and those that are allowed to join. | The old bank continued to exist, with new iron-cracking skills being introduced at the time of acceptance. |
+| $`i,\ x_i,\ o_i`$ | $`i`$ We're not going to be able to do this. $`x_i`$ This is the current goal. $`o_i`$ It is an environmental observation or feedback available at the time of retrieval. | The target is a barber, the input includes the current inventory or previous failures. |
+| $`\mathcal K_i,\ R_i`$ | $`\mathcal K_i`$ This is the skills bank that begins with this goal. $`R_i`$ It's the skills that are identified for the generator. | The process of molten insomnia, wooden sticks and tools of production was identified. |
+| $`\operatorname{Retrieve}`$ | Retrieval of candidate skills using task and current feedback to query the skills bank. | Comparing query and skill description vector similarities. |
+| $`c_i,\ \mathrm{desc}(c_i)`$ | A description of the new code for the target and the text to be used for retrieval. | Prepare iron-clad programs, if the practices and codes are preserved through acceptance and inspection. |
+| $`\mathcal K_{i+1},\ \cup`$ | The new library is merged between the original entries and those that are allowed to join. | The old bank continued to exist, with new iron-cracking skills being introduced at the time of acceptance. |
 
 **Step by step.** The left checker of the information already received is performed on the right and after the new application has been implemented and accepted. If the iron-cracking process actually uses the furnace skills and through inspection, the old process in the skills bank is involved in forming a new skill. [Voyager Fig. 2, 4 and §2](https://arxiv.org/pdf/2305.16291v2#page=4)
 
@@ -165,22 +165,22 @@ How to find an automatic paragraph for a given type of question, rating method a
 
 #### Fig. 3 in equations: defining a workflow before defining search
 
-AFlow is to deliver a re-executable workflow, such as a model solution, which is verified by another node. $W=(N,E_W)$ ,  $N$ It's a collection of steps within the process. $E_W$ It's a connection to the running order, branch and hand-over data, footer $W$ indicates the connection of the process. The original diagram writes the connection $E$ Of which... $N(M,\tau,P,F)$ Displays the model, sampling temperature, hint, and output formats for individual model nodes. The number of "max N rounds " in the middle of the figure allows a search round. A search tree node saves an entire workflow.
+AFlow is to deliver a re-executable workflow, such as a model solution, which is verified by another node. $`W=(N,E_W)`$ ,  $`N`$ It's a collection of steps within the process. $`E_W`$ It's a connection to the running order, branch and hand-over data, footer $`W`$ indicates the connection of the process. The original diagram writes the connection $`E`$ Of which... $`N(M,\tau,P,F)`$ Displays the model, sampling temperature, hint, and output formats for individual model nodes. The number of "max N rounds " in the middle of the figure allows a search round. A search tree node saves an entire workflow.
 
-$$
+```math
 W^\ast\in\arg\max_{W\in\mathcal W}G(W,D_V),\qquad
 \tilde W_t=P_{\mathrm{LLM}}(W_t,m_t;\text{prompt or edge}).
-$$
+```
 
 | Symbol | Meaning | Examples of mathematical workflows |
 | --- | --- | --- |
-| $W,\ \mathcal W,\ W\in\mathcal W$ | $W$ It's a job stream. $\mathcal W$ is the entire process that can be written according to the template, operating library and editing rules. $\in$ Read 'belong'. | The possibility of retweets and cross-borders could be provided through direct resolution, review and other options. |
-| $D_V,\ G(W,D_V)$ | $D_V$ It's a search and selection of the authentication questions. $V$ Shows value in subscripts. $G$ It's the way this process works on these topics. | The same set of 20 questions gives how many answers. |
-| $\arg\max,\ W^\ast$ | $\arg\max$ Returns the process that brings up the highest scores. $W^\ast$ It's one of the best processes in all space, with an asterisk representing the theoretical objective. | It needs to be known about the performance of all authorized processes in order to determine it. |
-| $t,\ W_t,\ m_t$ | $t$ I'm not sure if I'm going to be able to do this. $W_t$ It's the parent process that comes in. $m_t$ It is a search and test record that exists. | Draws to the direct solver, which shows it missing the calculation. |
-| $P_{\mathrm{LLM}},\ \tilde W_t$ | The former is proposed by the large language model and is divided into editorial parts. The latter is a new and operational candidate for this round. | The solution is followed by a review node. |
+| $`W,\ \mathcal W,\ W\in\mathcal W`$ | $`W`$ It's a job stream. $`\mathcal W`$ is the entire process that can be written according to the template, operating library and editing rules. $`\in`$ Read 'belong'. | The possibility of retweets and cross-borders could be provided through direct resolution, review and other options. |
+| $`D_V,\ G(W,D_V)`$ | $`D_V`$ It's a search and selection of the authentication questions. $`V`$ Shows value in subscripts. $`G`$ It's the way this process works on these topics. | The same set of 20 questions gives how many answers. |
+| $`\arg\max,\ W^\ast`$ | $`\arg\max`$ Returns the process that brings up the highest scores. $`W^\ast`$ It's one of the best processes in all space, with an asterisk representing the theoretical objective. | It needs to be known about the performance of all authorized processes in order to determine it. |
+| $`t,\ W_t,\ m_t`$ | $`t`$ I'm not sure if I'm going to be able to do this. $`W_t`$ It's the parent process that comes in. $`m_t`$ It is a search and test record that exists. | Draws to the direct solver, which shows it missing the calculation. |
+| $`P_{\mathrm{LLM}},\ \tilde W_t`$ | The former is proposed by the large language model and is divided into editorial parts. The latter is a new and operational candidate for this round. | The solution is followed by a review node. |
 
-**Left for target, right for extension.** Assuming that the solver answers to 12 on 20 authentication questions and 15 with a review. Only two times you try, actually deliver. $\widehat W$ It's the latter. The hat means a version selected from a limited search. The search results show who scores high in both processes, the theoretical target. $W^\ast$ It involves the entire search space.
+**Left for target, right for extension.** Assuming that the solver answers to 12 on 20 authentication questions and 15 with a review. Only two times you try, actually deliver. $`\widehat W`$ It's the latter. The hat means a version selected from a limited search. The search results show who scores high in both processes, the theoretical target. $`W^\ast`$ It involves the entire search space.
 
 In the original experiment, about 20% were used to divide the certification area, while the rest were tested. Searching for more differentiated questions in the certification area is done five times. The final delivery is evaluated separately on the test topic to observe the selection score and post-delivery performance separately. [AFlow §3.1, §4 and Algorithm 1](https://proceedings.iclr.cc/paper_files/paper/2025/file/5492ecbce4439401798dcd2c90be94cd-Paper-Conference.pdf#page=6)
 
@@ -188,21 +188,21 @@ In the original experiment, about 20% were used to divide the certification area
 
 Each time AFlow selects an existing version from the initial process and a number of high-scoring processes, and then continues to edit it. Mode (3) gives the probability of this parent selection.
 
-$$
+```math
 \Pr(i)=\lambda\frac1n+
 (1-\lambda)\frac{\exp[\alpha(q_i-q_{\max})]}
 {\sum_{j=1}^{n}\exp[\alpha(q_j-q_{\max})]}.
-$$
+```
 
 | Symbol | Meaning |
 | --- | --- |
-| $n,\ i,\ j$ | $n$ is the number of processes that are optional, $i$ It's a version number that calculates the probability of being drawn. $j$ They've been going through these versions in the denominators. |
-| $q_i,\ q_j,\ q_{\max}$ | $q_i,q_j$ is the validation score for the corresponding process, $q_{\max}$ is the highest score in the current candidature. $s_i$ Wait. |
-| $\lambda,\ \alpha$ | $\lambda$ (a) the weight of a flat draw; $1-\lambda$ is a fractional weight, $\alpha$ Controls the sensitivity to differences when extracted by fraction. |
-| $\exp,\ \sum_{j=1}^{n}$ | The index function converts the fractional difference to a positive weight. The denominator equals $n$ the sum of the weights and the probability of converting them to a sum of 1. |
-| $\Pr(i)$ | The probability of drawing the process $i$ to continue expansion. |
+| $`n,\ i,\ j`$ | $`n`$ is the number of processes that are optional, $`i`$ It's a version number that calculates the probability of being drawn. $`j`$ They've been going through these versions in the denominators. |
+| $`q_i,\ q_j,\ q_{\max}`$ | $`q_i,q_j`$ is the validation score for the corresponding process, $`q_{\max}`$ is the highest score in the current candidature. $`s_i`$ Wait. |
+| $`\lambda,\ \alpha`$ | $`\lambda`$ (a) the weight of a flat draw; $`1-\lambda`$ is a fractional weight, $`\alpha`$ Controls the sensitivity to differences when extracted by fraction. |
+| $`\exp,\ \sum_{j=1}^{n}`$ | The index function converts the fractional difference to a positive weight. The denominator equals $`n`$ the sum of the weights and the probability of converting them to a sum of 1. |
+| $`\Pr(i)`$ | The probability of drawing the process $`i`$ to continue expansion. |
 
-**Adds two versions.** With thesis. $\lambda=0.2,\alpha=0.4$ , set two tests to be split between 0.8 and 0.6. The first one is given to each. $0.2/2=0.1$ . The index weight for both of the second two is $1$ and $\exp(-0.08)$ multiplied. $0.8$ Plus even, the odds are around. **0.516 and 0.484**. The higher score version is easier to take over, and the other one still has an opportunity. The same ratio between weights is easy to calculate by subtracting the common maximum score. The edge of Fig.6 indicates which parent version was actually used for which extension. [AFlow (3) and Fig. 6](https://proceedings.iclr.cc/paper_files/paper/2025/file/5492ecbce4439401798dcd2c90be94cd-Paper-Conference.pdf#page=7)
+**Adds two versions.** With thesis. $`\lambda=0.2,\alpha=0.4`$ , set two tests to be split between 0.8 and 0.6. The first one is given to each. $`0.2/2=0.1`$ . The index weight for both of the second two is $`1`$ and $`\exp(-0.08)`$ multiplied. $`0.8`$ Plus even, the odds are around. **0.516 and 0.484**. The higher score version is easier to take over, and the other one still has an opportunity. The same ratio between weights is easy to calculate by subtracting the common maximum score. The edge of Fig.6 indicates which parent version was actually used for which extension. [AFlow (3) and Fig. 6](https://proceedings.iclr.cc/paper_files/paper/2025/file/5492ecbce4439401798dcd2c90be94cd-Paper-Conference.pdf#page=7)
 
 ![AFlow Original Fig. 6. The tree and final selection system for job flow candidates on GSM8K](../Figures/representative/aflow_fig06_gsm8k_path.png)
 
@@ -210,7 +210,7 @@ $$
 
 #### Worked case: how search produced a GSM8K problem-solving program
 
-Read from the dark path of Fig. 6 $1\to2\to3\to8\to10$. Round 1 is the initial flow, with a score of 0.8591 in the figure. Round 2 plus `ScEnsemble`, with multiple candidates to select the answer, figure 0.8872. Round 3 `Programmer` For review, chart 0.9160. Round 8 replaces the final output hint with a extractable value in figure 0.9333. Round 10 again requires a step-by-step examination of the reasoning and an attempt to back-check it, figure 0.9352. Node skips 4 to 7, indicating that another branch has been expanded during this period. Look at the two hints at the right and left, change the delivery format of the answer and change the inspection process to the right. Both types of changes may raise the same score. In order to determine how many questions the 8th round is correct, it is possible to replace the same original output with a more robust digital extraction method, and then to compare blindness to the correctness of the two versions. [Original Fig.6 and Appendix D](https://proceedings.iclr.cc/paper_files/paper/2025/file/5492ecbce4439401798dcd2c90be94cd-Paper-Conference.pdf#page=10)
+Read from the dark path of Fig. 6 $`1\to2\to3\to8\to10`$. Round 1 is the initial flow, with a score of 0.8591 in the figure. Round 2 plus `ScEnsemble`, with multiple candidates to select the answer, figure 0.8872. Round 3 `Programmer` For review, chart 0.9160. Round 8 replaces the final output hint with a extractable value in figure 0.9333. Round 10 again requires a step-by-step examination of the reasoning and an attempt to back-check it, figure 0.9352. Node skips 4 to 7, indicating that another branch has been expanded during this period. Look at the two hints at the right and left, change the delivery format of the answer and change the inspection process to the right. Both types of changes may raise the same score. In order to determine how many questions the 8th round is correct, it is possible to replace the same original output with a more robust digital extraction method, and then to compare blindness to the correctness of the two versions. [Original Fig.6 and Appendix D](https://proceedings.iclr.cc/paper_files/paper/2025/file/5492ecbce4439401798dcd2c90be94cd-Paper-Conference.pdf#page=10)
 
 Fig. 6 is the selection score for the last GSM8K search. Table 1 values the processes selected by each benchmark to be evaluated on the respective set-off test. AFlow values 80.3, with a baseline of 76.0 for the chain of reasoning sample voting, and an average of three times for implementation. This mean mixes mathematical resolution, F1 for measuring question and answer output and standard answers, and the pass rate for the code under one submission (pass@1). **This example establishes improvements in reusable processes.** The searcher itself selects and generates a candidate using preset algorithms. To ask "Will a follow-up searcher better change the workflow" alone, it needs to place new and old searchers under the same initial process and budget, comparing the subsequent performance on the independence issue. [Main comparison Table 1](https://proceedings.iclr.cc/paper_files/paper/2025/file/5492ecbce4439401798dcd2c90be94cd-Paper-Conference.pdf#page=8) · [Migration Contrast Table 2](https://proceedings.iclr.cc/paper_files/paper/2025/file/5492ecbce4439401798dcd2c90be94cd-Paper-Conference.pdf#page=9)
 
@@ -236,28 +236,28 @@ The agent can change its prompts, tools, retries, and workflow. The experiment f
 
 Select an existing coding agent to write a patch, change its own code to a new proxy, and then let the new proxy handle tasks in the user items. The first half produces proxy versions, the second half evaluates these versions. Here is the formalization of the original Algorithm 1.
 
-$$
+```math
 \begin{aligned}
-g_t &= \mathrm{Diagnose}(\ell_a),\\
+g_t &= \mathrm{Diagnose}(\ell_a),\\[0pt]
 \delta_t &= a\bigl(\mathrm{repo}(a),g_t\bigr),&
-\tilde a_t &= \mathrm{Apply}(a,\delta_t),\\
+\tilde a_t &= \mathrm{Apply}(a,\delta_t),\\[0pt]
 o_t &= \mathrm{Run}(\tilde a_t,\mathcal D_{\mathrm{bench}}),&
 r_t &= \mathrm{Score}(o_t).
 \end{aligned}
-$$
+```
 
 | Symbol | Meaning | To strengthen the editorial capacity of documents, for example |
 | --- | --- | --- |
-| $t,\ a,\ \mathrm{repo}(a)$ | $t$ The number of candidates is on the generator wheel. $a$ I'm a father's agent who was drawn from the file. $\mathrm{repo}(a)$ It's its own repository. | Leave your editing tool to the father's agent for modification. |
-| $\ell_a,\ \mathrm{Diagnose},\ g_t$ | $\ell_a$ It's lower case. It's a parent's downstream log. The diagnostic step returns this round to improve the need. $g_t$ The original experimental diagnostic model used o1. | The log shows that the entire file editing is prone to misinterpretation and proposes to support partial replacement. |
-| $a(\mathrm{repo}(a),g_t),\ \delta_t$ | One programming request was sent to the father ' s agent. $\delta_t$ (delta) is a self-remediation patch that it produces. | Patch changes its own editing tool. |
-| $\mathrm{Apply},\ \tilde a_t$ | Apply patches to the parent and generate sub-agents to be assessed $\tilde a_t$ . | get a sub-agent that can try to modify the file by location. |
-| $\mathrm{Run},\ \mathcal D_{\mathrm{bench}},\ o_t$ | Executing sub-agent, giving it a baseline theme with user warehouses and task statements for each theme. $o_t$ Includes task patches, test results and logs. | Sub-agents use a new version of the tool to fix user items. |
-| $\mathrm{Score},\ r_t$ | The results of the question-by-question test are summarized as the pass rate for sub-agents. | If the same 60 issues pass 24, $r_t=24/60=0.40$. |
+| $`t,\ a,\ \mathrm{repo}(a)`$ | $`t`$ The number of candidates is on the generator wheel. $`a`$ I'm a father's agent who was drawn from the file. $`\mathrm{repo}(a)`$ It's its own repository. | Leave your editing tool to the father's agent for modification. |
+| $`\ell_a,\ \mathrm{Diagnose},\ g_t`$ | $`\ell_a`$ It's lower case. It's a parent's downstream log. The diagnostic step returns this round to improve the need. $`g_t`$ The original experimental diagnostic model used o1. | The log shows that the entire file editing is prone to misinterpretation and proposes to support partial replacement. |
+| $`a(\mathrm{repo}(a),g_t),\ \delta_t`$ | One programming request was sent to the father ' s agent. $`\delta_t`$ (delta) is a self-remediation patch that it produces. | Patch changes its own editing tool. |
+| $`\mathrm{Apply},\ \tilde a_t`$ | Apply patches to the parent and generate sub-agents to be assessed $`\tilde a_t`$ . | get a sub-agent that can try to modify the file by location. |
+| $`\mathrm{Run},\ \mathcal D_{\mathrm{bench}},\ o_t`$ | Executing sub-agent, giving it a baseline theme with user warehouses and task statements for each theme. $`o_t`$ Includes task patches, test results and logs. | Sub-agents use a new version of the tool to fix user items. |
+| $`\mathrm{Score},\ r_t`$ | The results of the question-by-question test are summarized as the pass rate for sub-agents. | If the same 60 issues pass 24, $`r_t=24/60=0.40`$. |
 
 **In descending order.** The first line diagnoses local editing needs, the second line modifys its warehouse with a father's agent and applies a self-reflection patch, and the third line starts testing sub-agents on other projects to get their grades. The 24/60 above is the calculation value. If the same agreement is tested on the parent version only, there is more than six parent's version. There are basic functionality checks.
 
-The original text has been rephrased to read $a.\mathrm{modify}(a)$ , point number left is the agent who did the deed, and in brackets is the agent that was changed. $a_0.\mathrm{modify}(a)$ ,  $a_0$ It's the original agent. You can follow the two changes in the diagram: who's responsible for the rewrite and which warehouse is rewrited. [DGM Appendix C.3, D and Algorithm 1-2](https://arxiv.org/pdf/2505.22954v3#page=28)
+The original text has been rephrased to read $`a.\mathrm{modify}(a)`$ , point number left is the agent who did the deed, and in brackets is the agent that was changed. $`a_0.\mathrm{modify}(a)`$ ,  $`a_0`$ It's the original agent. You can follow the two changes in the diagram: who's responsible for the rewrite and which warehouse is rewrited. [DGM Appendix C.3, D and Algorithm 1-2](https://arxiv.org/pdf/2505.22954v3#page=28)
 
 **Why do we have to start with a few questions?** Each candidate is the first to undergo a basic editorial function check for 10 jobs. SWE-bench expands the functional candidate to 60 lanes, and the candidate that reached the 40% threshold at that stage and the top two of the file to 200 lanes. 200 of these include 60 already. Polyglot expands the threshold version to 50 after the 10 lanes have been screened. Small batches remove agents whose code can no longer be edited and save costs, and estimates between versions are influenced by the number of samples and randomity. [Original §4.2, Fig. 3 and Appendix E](https://arxiv.org/pdf/2505.22954v3#page=6)
 
@@ -267,25 +267,25 @@ The original text has been rephrased to read $a.\mathrm{modify}(a)$ , point numb
 
 #### Fig. 3 in equations: which archived version takes over?
 
-The DGM will keep a number of run-able proxy versions. When you rewrite $t$, you take a father's agent and you can see how many times it's been tried. Press Appendix C.2 to spell out how the two weights work together.
+The DGM will keep a number of run-able proxy versions. When you rewrite $`t`$, you take a father's agent and you can see how many times it's been tried. Press Appendix C.2 to spell out how the two weights work together.
 
-$$
+```math
 w_i=
 \frac{1}{1+\exp[-\lambda(\alpha_i-\alpha_{\mathrm{mid}})]}
 \cdot\frac{1}{1+n_i},
 \qquad
 \Pr_t(i)=\frac{w_i}{\sum_{j\in\mathcal A_t^{\mathrm{eligible}}}w_j}.
-$$
+```
 
 | Symbol | Meaning |
 | --- | --- |
-| $\mathcal A_t^{\mathrm{eligible}},\ i,\ j$ | $\mathcal A_t$ It's the first. $t$ Round file, top bid. $\mathrm{eligible}$ Indicate those parts that are eligible for selection and the original text excludes those versions that have reached the full point. $i$ It's a node to calculate probability. $j$ Walk through all eligible nodes. |
-| $\alpha_i,\ \alpha_{\mathrm{mid}},\ \lambda$ | $\alpha_i$ It's a node. $i$ , the rate of passage is 0 to 1. $\alpha_{\mathrm{mid}}$ is the midpoint of the first weighting curve, original $\alpha_0$ . $\lambda$ Controls the slope of the curve. |
-| $n_i$ | Node $i$ The number of direct sub-nodes that have the code and can still edit it. $1/(1+n_i)$ reduces the middle weight when more subnominal versions have been tested. |
-| $\exp,\ w_i$ | The index function appears in the first category. $w_i$ is the multiplier of the display weight to the exploration weight. |
-| $\Pr_t(i),\ \sum$ | $\Pr_t(i)$ It's the middle of this round. $i$ The probability. $w_i$ Except the sum of the weights of all eligible nodes. |
+| $`\mathcal A_t^{\mathrm{eligible}},\ i,\ j`$ | $`\mathcal A_t`$ It's the first. $`t`$ Round file, top bid. $`\mathrm{eligible}`$ Indicate those parts that are eligible for selection and the original text excludes those versions that have reached the full point. $`i`$ It's a node to calculate probability. $`j`$ Walk through all eligible nodes. |
+| $`\alpha_i,\ \alpha_{\mathrm{mid}},\ \lambda`$ | $`\alpha_i`$ It's a node. $`i`$ , the rate of passage is 0 to 1. $`\alpha_{\mathrm{mid}}`$ is the midpoint of the first weighting curve, original $`\alpha_0`$ . $`\lambda`$ Controls the slope of the curve. |
+| $`n_i`$ | Node $`i`$ The number of direct sub-nodes that have the code and can still edit it. $`1/(1+n_i)`$ reduces the middle weight when more subnominal versions have been tested. |
+| $`\exp,\ w_i`$ | The index function appears in the first category. $`w_i`$ is the multiplier of the display weight to the exploration weight. |
+| $`\Pr_t(i),\ \sum`$ | $`\Pr_t(i)`$ It's the middle of this round. $`i`$ The probability. $`w_i`$ Except the sum of the weights of all eligible nodes. |
 
-**Adds two versions.** Sets only two eligible nodes with a mission pass rate of 0.5 and direct access to 0 and 3 subnodes, respectively. Use the original experiment $\lambda=10,\alpha_{\mathrm{mid}}=0.5$ When the first one is... $1/(1+\exp(0))=0.5$ The second is 1 and $1/4$ . The weights are 0.5 and 0.125, and then they're down-sized. **0.8 and 0.2 **This makes it easy to get a chance at the less explored nodes.
+**Adds two versions.** Sets only two eligible nodes with a mission pass rate of 0.5 and direct access to 0 and 3 subnodes, respectively. Use the original experiment $`\lambda=10,\alpha_{\mathrm{mid}}=0.5`$ When the first one is... $`1/(1+\exp(0))=0.5`$ The second is 1 and $`1/4`$ . The weights are 0.5 and 0.125, and then they're down-sized. **0.8 and 0.2 **This makes it easy to get a chance at the less explored nodes.
 
 Read the map to see if it can be archived and which parent has actually taken over. [DGM Appendix C.2](https://arxiv.org/pdf/2505.22954v3#page=28) · [Original Fig. 3](https://arxiv.org/pdf/2505.22954v3#page=7)
 
@@ -343,33 +343,33 @@ Along the middle. `Question → Language Model → Rationale, Answer` Read, a mo
 
 StaR solves the question of how to make a sample when " there is a standard answer, there is no intermediate reason " . Both paths in the chart are answered by the current generation model, one does not give the answer to the current question, and one gives the answer as an explanation. The sample after the screening of the two paths is combined to fine-tune the pre-training model. Press Algorithm 1 below and the example is omitted from the model input.
 
-$$
+```math
 \begin{aligned}
-(\hat r_j,\hat y_j)&=M_{t-1}(x_j),\\
-(\hat r_j^{\mathrm{rat}},\hat y_j^{\mathrm{rat}})&=M_{t-1}(x_j^{\mathrm{hint}}),\\
+(\hat r_j,\hat y_j)&=M_{t-1}(x_j),\\[0pt]
+(\hat r_j^{\mathrm{rat}},\hat y_j^{\mathrm{rat}})&=M_{t-1}(x_j^{\mathrm{hint}}),\\[0pt]
 D_t^{\mathrm{direct}}
- &= \{(x_j,\hat r_j,y_j):1\le j\le J,\ \hat y_j=y_j\},\\
+ &= \{(x_j,\hat r_j,y_j):1\le j\le J,\ \hat y_j=y_j\},\\[0pt]
 D_t^{\mathrm{rat}}
  &= \{(x_j,\hat r_j^{\mathrm{rat}},y_j):
-      1\le j\le J,\ \hat y_j\ne y_j,\ \hat y_j^{\mathrm{rat}}=y_j\},\\
-M_t&=\mathrm{FineTune}\bigl(M_0,\ D_t^{\mathrm{direct}}\cup D_t^{\mathrm{rat}}\bigr),\\
+      1\le j\le J,\ \hat y_j\ne y_j,\ \hat y_j^{\mathrm{rat}}=y_j\},\\[0pt]
+M_t&=\mathrm{FineTune}\bigl(M_0,\ D_t^{\mathrm{direct}}\cup D_t^{\mathrm{rat}}\bigr),\\[0pt]
 \text{generator for round }t+1&=M_t .
 \end{aligned}
-$$
+```
 
 | Symbol | Meaning |
 | --- | --- |
-| $t,\ t+1,\ j,\ J$ | $t$ It's the outer layer sample retraining cycle, starting with 1 $t+1$ Point to the next round. $j$ It's the title. $J$ It's the total number of training topics. $1\le j\le J$ This is a long trip to the training pool. |
-| $x_j,\ x_j^{\mathrm{hint}},\ y_j$ | $x_j$ The question is not to give an answer. $y_j$ Standard answer. Superscript. $\mathrm{hint}$ Adds an answer hint to the identification title. |
-| $M_0,\ M_{t-1},\ M_t$ | $M_0$ It's an initial pre-training model. $M_{t-1}$ He is the generator of the sample that this round uses to produce. $M_t$ It's a fine-tuning model completed in the current round. |
-| $\hat r_j,\hat y_j$ | The reason and predictive answer that is generated when no answer is given. The hat represents the value of the model generated $r$ here is the reason for the question. |
-| $\hat r_j^{\mathrm{rat}},\hat y_j^{\mathrm{rat}}$ | The reason and output after giving the answer. $\mathrm{rat}$ Marks the path of the résumation. |
-| $D_t^{\mathrm{direct}},\ D_t^{\mathrm{rat}}$ | The colon in brackets is the sample format and the condition on the right. $=$ 」「 $\ne$ In the screening conditions, check whether the answer is consistent with the criteria. |
-| $\mathrm{FineTune},\ \cup$ | The samples are initially merged $\cup$, then initialized and fine-tuned from the samples $M_0$. |
+| $`t,\ t+1,\ j,\ J`$ | $`t`$ It's the outer layer sample retraining cycle, starting with 1 $`t+1`$ Point to the next round. $`j`$ It's the title. $`J`$ It's the total number of training topics. $`1\le j\le J`$ This is a long trip to the training pool. |
+| $`x_j,\ x_j^{\mathrm{hint}},\ y_j`$ | $`x_j`$ The question is not to give an answer. $`y_j`$ Standard answer. Superscript. $`\mathrm{hint}`$ Adds an answer hint to the identification title. |
+| $`M_0,\ M_{t-1},\ M_t`$ | $`M_0`$ It's an initial pre-training model. $`M_{t-1}`$ He is the generator of the sample that this round uses to produce. $`M_t`$ It's a fine-tuning model completed in the current round. |
+| $`\hat r_j,\hat y_j`$ | The reason and predictive answer that is generated when no answer is given. The hat represents the value of the model generated $`r`$ here is the reason for the question. |
+| $`\hat r_j^{\mathrm{rat}},\hat y_j^{\mathrm{rat}}`$ | The reason and output after giving the answer. $`\mathrm{rat}`$ Marks the path of the résumation. |
+| $`D_t^{\mathrm{direct}},\ D_t^{\mathrm{rat}}`$ | The colon in brackets is the sample format and the condition on the right. $`=`$ 」「 $`\ne`$ In the screening conditions, check whether the answer is consistent with the criteria. |
+| $`\mathrm{FineTune},\ \cup`$ | The samples are initially merged $`\cup`$, then initialized and fine-tuned from the samples $`M_0`$. |
 
-**Line by Line into Round 1.** With $M_0$ two arithmetic examples. Title $x_1$ Yes. $7+8$ It's written the right reason and got it. $15=y_1$ So the question, the reason, the answer, went in. $D_1^{\mathrm{direct}}$ . Title $x_2$ Yes. $8+6$ , normally generated to 13, gave a standard answer prompt 14 after which it wrote "Put 2 to 10 and add the remaining 4", output $14=y_2$ This one's in. $D_1^{\mathrm{rat}}$ . Training input is still free $8+6$. Two records together, from $M_0$ Fine-tune out $M_1$ .
+**Line by Line into Round 1.** With $`M_0`$ two arithmetic examples. Title $`x_1`$ Yes. $`7+8`$ It's written the right reason and got it. $`15=y_1`$ So the question, the reason, the answer, went in. $`D_1^{\mathrm{direct}}`$ . Title $`x_2`$ Yes. $`8+6`$ , normally generated to 13, gave a standard answer prompt 14 after which it wrote "Put 2 to 10 and add the remaining 4", output $`14=y_2`$ This one's in. $`D_1^{\mathrm{rat}}`$ . Training input is still free $`8+6`$. Two records together, from $`M_0`$ Fine-tune out $`M_1`$ .
 
-Round 2 $M_1$ Make samples, fine tune again from $M_0$ Initializes. The arrows in the graph are passed on **Generator**. In the summary mark, No. $t$ Wheel Start Status $s_t$ Hold $M_{t-1}$ Write back to status $s_{t+1}$ Hold $M_t$ . The screening conditions only confirm the final answer. The new model can answer better, with a separate question. [STaR §3.1–3.2, Algorithm 1](https://proceedings.nips.cc/paper_files/paper/2022/file/639a9a172c044fbb64175b5fad42e9a5-Paper-Conference.pdf#page=4)
+Round 2 $`M_1`$ Make samples, fine tune again from $`M_0`$ Initializes. The arrows in the graph are passed on **Generator**. In the summary mark, No. $`t`$ Wheel Start Status $`s_t`$ Hold $`M_{t-1}`$ Write back to status $`s_{t+1}`$ Hold $`M_t`$ . The screening conditions only confirm the final answer. The new model can answer better, with a separate question. [STaR §3.1–3.2, Algorithm 1](https://proceedings.nips.cc/paper_files/paper/2022/file/639a9a172c044fbb64175b5fad42e9a5-Paper-Conference.pdf#page=4)
 
 ![STAR original Fig. 2. Use the correct option to give an example of the reason for the thread.](../Figures/representative/star_fig02_hint.png)
 
@@ -379,7 +379,7 @@ Round 2 $M_1$ Make samples, fine tune again from $M_0$ Initializes. The arrows i
 
 The subject is where to put the grapes before the supermarket is closed. `(b) grocery cart` Clear green labels by the side `CORRECT` When you enter a training session, you can use a new training session. **Enter the correct option tag in the title was removed**, export monitoring still includes reasons and correct answers. Training to learn to predict reasons and answers when you see the question. Evaluations also provide only questions and examples. The correct answer is to help construct the monitoring material and verify that the results are still derived from normal responses to the independence question. The final answer does not determine whether the reason actually leads to a conclusion. [Original Fig. 2, §3.2, §4.4](https://proceedings.nips.cc/paper_files/paper/2022/file/639a9a172c044fbb64175b5fad42e9a5-Paper-Conference.pdf#page=4)
 
-**Succession and acceptance on a rotating basis.** You can find it in the pattern. $M_t$ The original Algorithm 1 replaces the generator by a wheel, without setting a new negative threshold for a round-by-round win. $M_{t-1}\to M_t$ The smallest RSI is to be satisfied with the synthesis, and the evidence is to be improved to match the generation, to examine the comparison and to accept the basis. [STAR §3.1 and Algorithm 1](https://proceedings.nips.cc/paper_files/paper/2022/file/639a9a172c044fbb64175b5fad42e9a5-Paper-Conference.pdf#page=4)
+**Succession and acceptance on a rotating basis.** You can find it in the pattern. $`M_t`$ The original Algorithm 1 replaces the generator by a wheel, without setting a new negative threshold for a round-by-round win. $`M_{t-1}\to M_t`$ The smallest RSI is to be satisfied with the synthesis, and the evidence is to be improved to match the generation, to examine the comparison and to accept the basis. [STAR §3.1 and Algorithm 1](https://proceedings.nips.cc/paper_files/paper/2022/file/639a9a172c044fbb64175b5fad42e9a5-Paper-Conference.pdf#page=4)
 
 ![STAR original Fig. 4. Around that is an arithmetic experiment with or no justification, colours distinguish the number of digits of operations](../Figures/representative/star_fig04_arithmetic.png)
 
@@ -405,28 +405,28 @@ When reading the correct rates, it is also a question of which batch to evaluate
 
 Sets a training question to give 1 point to the right output and 0 points to the wrong output. Here we start with the "average reward for all possible outputs" and explain how the correct answer signals the parameter update. This is STAR. §3.1 The deduction is spread on a single subject.
 
-$$
+```math
 \begin{aligned}
 \nabla_\theta\mathbb E[R]
- &=\nabla_\theta\sum_{\hat r,\hat y}p_\theta(\hat r,\hat y\mid x)R(\hat y)\\
+ &=\nabla_\theta\sum_{\hat r,\hat y}p_\theta(\hat r,\hat y\mid x)R(\hat y)\\[0pt]
  &=\sum_{\hat r,\hat y}p_\theta(\hat r,\hat y\mid x)R(\hat y)
-                   \nabla_\theta\log p_\theta(\hat r,\hat y\mid x)\\
+                   \nabla_\theta\log p_\theta(\hat r,\hat y\mid x)\\[0pt]
  &=\mathbb E\!\left[R(\hat y)\nabla_\theta\log
                    p_\theta(\hat r,\hat y\mid x)\right].
 \end{aligned}
-$$
+```
 
 | Symbol | Meaning |
 | --- | --- |
-| $x,\ y,\ \hat r,\ \hat y$ | $x$ It's the subject. $y$ It's a standard answer. $\hat r$ It's a possible reason to create it. $\hat y$ It's the answer that comes out with it. |
-| $\theta,\ p_\theta(\hat r,\hat y\mid x)$ | $\theta$ is a set of model parameters. $p_\theta$ It's a deal. $x$ And the probability of creating this text, $\mid$ Read "Dealed". |
-| $R,\ R(\hat y),\ \mathbf 1$ | Awards $R(\hat y)=\mathbf 1[\hat y=y]$ . $\mathbf 1$ is the indicator function, condition is set to take one, otherwise 0 is taken. |
-| $\mathbb E[R],\ \sum_{\hat r,\hat y}$ | Expectes the possible output of the same question. Each is weighted by the probability given by the model for the reasons and for each combination of answers. |
-| $\nabla_\theta,\ \log$ | $\nabla_\theta$ is a gradient for model parameters, $\log$ is natural logarithm. |
+| $`x,\ y,\ \hat r,\ \hat y`$ | $`x`$ It's the subject. $`y`$ It's a standard answer. $`\hat r`$ It's a possible reason to create it. $`\hat y`$ It's the answer that comes out with it. |
+| $`\theta,\ p_\theta(\hat r,\hat y\mid x)`$ | $`\theta`$ is a set of model parameters. $`p_\theta`$ It's a deal. $`x`$ And the probability of creating this text, $`\mid`$ Read "Dealed". |
+| $`R,\ R(\hat y),\ \mathbf 1`$ | Awards $`R(\hat y)=\mathbf 1[\hat y=y]`$ . $`\mathbf 1`$ is the indicator function, condition is set to take one, otherwise 0 is taken. |
+| $`\mathbb E[R],\ \sum_{\hat r,\hat y}`$ | Expectes the possible output of the same question. Each is weighted by the probability given by the model for the reasons and for each combination of answers. |
+| $`\nabla_\theta,\ \log`$ | $`\nabla_\theta`$ is a gradient for model parameters, $`\log`$ is natural logarithm. |
 
-**Read it line by line.** The first line reads, "Expert probability multiplied by reward, and then the output reconciled." When you give a given pair of output, the reward does not change with the parameter. The second line uses the item with a positive probability. $\nabla_\theta p=p\nabla_\theta\log p$ Here. $p$ That's the probability. The third line returns the expectations with the same distribution-weighted sum.
+**Read it line by line.** The first line reads, "Expert probability multiplied by reward, and then the output reconciled." When you give a given pair of output, the reward does not change with the parameter. The second line uses the item with a positive probability. $`\nabla_\theta p=p\nabla_\theta\log p`$ Here. $`p`$ That's the probability. The third line returns the expectations with the same distribution-weighted sum.
 
-**Let's put it together.** Sets only two outputs under the current parameter, the correct probability of 0.3, the error probability of 0.7. The average reward is 0.7. $0.3\times1+0.7\times0=0.3$ . In the second line, the error output is multiplied by 0, leaving the probability multiplier gradient. As long as the answer is correct, one point is given for both reasons. The STAR experiment uses greed to generate, filter and fine-tune this signal, adding supplementary justification data. [STAR §3.1, formula (1)-(3) with Algorithm 1](https://proceedings.nips.cc/paper_files/paper/2022/file/639a9a172c044fbb64175b5fad42e9a5-Paper-Conference.pdf#page=4)
+**Let's put it together.** Sets only two outputs under the current parameter, the correct probability of 0.3, the error probability of 0.7. The average reward is 0.7. $`0.3\times1+0.7\times0=0.3`$ . In the second line, the error output is multiplied by 0, leaving the probability multiplier gradient. As long as the answer is correct, one point is given for both reasons. The STAR experiment uses greed to generate, filter and fine-tune this signal, adding supplementary justification data. [STAR §3.1, formula (1)-(3) with Algorithm 1](https://proceedings.nips.cc/paper_files/paper/2022/file/639a9a172c044fbb64175b5fad42e9a5-Paper-Conference.pdf#page=4)
 
 ### 3.2 AlphaGo Zero: who generates games, and when does the successor take over?
 
@@ -440,48 +440,48 @@ From random initialization, only chess rules are given. Can a chess player train
 
 #### Fig. 1: moves, training, and replacement of the self-play policy
 
-**The first half is the creation of the match.** $i$ Count the first hand in a game. The original figure says the inside hand count. $t$ , final writing $T$ . Here we go. $i$ Number of insiders, sum up. $t$ Leave it to the outer layer. $s_i$ It's the chess board and history before this hand, and it's partly about the chess situation. $f_\theta$ is by parameter $\theta$ The network that you decided on. The chess board was created with a network of chess players and searches that were allowed to come out. $s_i$ The probability of a move is then given both a priori to the search and a negative value to the winner from the perspective of the current chess player.
+**The first half is the creation of the match.** $`i`$ Count the first hand in a game. The original figure says the inside hand count. $`t`$ , final writing $`T`$ . Here we go. $`i`$ Number of insiders, sum up. $`t`$ Leave it to the outer layer. $`s_i`$ It's the chess board and history before this hand, and it's partly about the chess situation. $`f_\theta`$ is by parameter $`\theta`$ The network that you decided on. The chess board was created with a network of chess players and searches that were allowed to come out. $`s_i`$ The probability of a move is then given both a priori to the search and a negative value to the winner from the perspective of the current chess player.
 
 **How do we replace the number of searches with the probability of falling?** The Monte Carlo Tree Search (MCTS) is modelled by the current network, which accumulates the number of visits per walk. In the Methods formula, the number is shifted to weight and the power is re-established.
 
-$$
+```math
 \pi_i(a)
 =\frac{N(s_i,a)^{1/\tau}}
        {\sum_{b\in\mathcal A(s_i)}N(s_i,b)^{1/\tau}}.
-$$
+```
 
 | Symbol | Meaning |
 | --- | --- |
-| $i,\ s_i$ | $i$ The number of hands in this game. $s_i$ It's the first. $i$ Hands before the plate with history. |
-| $a,\ b,\ \mathcal A(s_i)$ | $a$ It's the way to calculate the probability. $b$ Gather in the denominators all the moves allowed on the disc. $\mathcal A(s_i)$ That includes stopping. |
-| $N(s_i,a),\ N(s_i,b)$ | Searches the number of times that this on-board access is done accordingly. |
-| $\tau,\ \sum$ | $\tau>0$ It's the sampling temperature. $1/\tau$ Sub-divisions add the corresponding weights. |
-| $\pi_i(a),\ \pi_i$ | $\pi_i(a)$ It's a search and we're going. $a$ Probability, $\pi_i$ It's a distribution of probability by method. |
+| $`i,\ s_i`$ | $`i`$ The number of hands in this game. $`s_i`$ It's the first. $`i`$ Hands before the plate with history. |
+| $`a,\ b,\ \mathcal A(s_i)`$ | $`a`$ It's the way to calculate the probability. $`b`$ Gather in the denominators all the moves allowed on the disc. $`\mathcal A(s_i)`$ That includes stopping. |
+| $`N(s_i,a),\ N(s_i,b)`$ | Searches the number of times that this on-board access is done accordingly. |
+| $`\tau,\ \sum`$ | $`\tau>0`$ It's the sampling temperature. $`1/\tau`$ Sub-divisions add the corresponding weights. |
+| $`\pi_i(a),\ \pi_i`$ | $`\pi_i(a)`$ It's a search and we're going. $`a`$ Probability, $`\pi_i`$ It's a distribution of probability by method. |
 
-**Put it on a plate.** There's only two legal ways to do it. The number of visits is 8 and 2, take. $\tau=1/2$ The weight is... $8^2=64$ and $2^2=4$ , Probability $16/17$ and $1/17$ . The diagram $a_i\sim\pi_i$ , which means you're actually going to get rid of it $a_i$ Select from this distribution. To the end. $s_T$ That's why I'm the winner. $z$ of which $T$ It's the end. Here's the first. $i$ The hand-filling was a win from the chess team. $+1$ Or lose. $-1$ It's... $z_i$ ♪ Make a record of training ♪ $(s_i,\pi_i,z_i)$ . [AlphaGo Zero Fig. 1–2](https://discovery.ucl.ac.uk/id/eprint/10045895/1/agz_unformatted_nature.pdf#page=4) · [Normalize the number of visits in Methods](https://discovery.ucl.ac.uk/id/eprint/10045895/1/agz_unformatted_nature.pdf#page=26)
+**Put it on a plate.** There's only two legal ways to do it. The number of visits is 8 and 2, take. $`\tau=1/2`$ The weight is... $`8^2=64`$ and $`2^2=4`$ , Probability $`16/17`$ and $`1/17`$ . The diagram $`a_i\sim\pi_i`$ , which means you're actually going to get rid of it $`a_i`$ Select from this distribution. To the end. $`s_T`$ That's why I'm the winner. $`z`$ of which $`T`$ It's the end. Here's the first. $`i`$ The hand-filling was a win from the chess team. $`+1`$ Or lose. $`-1`$ It's... $`z_i`$ ♪ Make a record of training ♪ $`(s_i,\pi_i,z_i)`$ . [AlphaGo Zero Fig. 1–2](https://discovery.ucl.ac.uk/id/eprint/10045895/1/agz_unformatted_nature.pdf#page=4) · [Normalize the number of visits in Methods](https://discovery.ucl.ac.uk/id/eprint/10045895/1/agz_unformatted_nature.pdf#page=26)
 
 **How do you use this record during training?** Fig.1 The second half of the map shows a recorded disk, search distribution, and actual success, requiring two of the network's output to be close to these targets. The next mode gives training to reduce the loss on this record.
 
-$$
+```math
 \mathcal L(\theta;s_i,\pi_i,z_i)
 =(z_i-v_i)^2-\pi_i^\top\log p_i+c\lVert\theta\rVert_2^2 .
-$$
+```
 
 | Symbol | Meaning |
 | --- | --- |
-| $\theta,\ s_i,\ \mathcal L(\theta;s_i,\pi_i,z_i)$ | $\theta$ is the network parameter that is being updated. $s_i$ And the record of the record, $\mathcal L$ This is a recorded loss. |
-| $z_i,\ v_i$ | $z_i$ and the recorded victory. $v_i$ It is the network that predicts the value of the current chess player. $(z_i-v_i)^2$ is its square error. |
-| $\pi_i,\ p_i,\ a$ | $\pi_i$ is the recorded search distribution. $p_i$ It's a probabilities vector for the network. Any one of them goes. $a$ Yes. $\pi_i(a)$ and $p_i(a)$ Two probabilities. |
-| $\top,\ \log,\ -\pi_i^\top\log p_i$ | $\top$ It's like, "I'm going to have to do it." $\log$ Take natural logarithms for each predicted probability. |
-| $c,\ \lVert\theta\rVert_2^2$ | $c$ is the regular weight, the square of the squares is the sum of all parameters squarely and is used to punish excessively large parameters. |
+| $`\theta,\ s_i,\ \mathcal L(\theta;s_i,\pi_i,z_i)`$ | $`\theta`$ is the network parameter that is being updated. $`s_i`$ And the record of the record, $`\mathcal L`$ This is a recorded loss. |
+| $`z_i,\ v_i`$ | $`z_i`$ and the recorded victory. $`v_i`$ It is the network that predicts the value of the current chess player. $`(z_i-v_i)^2`$ is its square error. |
+| $`\pi_i,\ p_i,\ a`$ | $`\pi_i`$ is the recorded search distribution. $`p_i`$ It's a probabilities vector for the network. Any one of them goes. $`a`$ Yes. $`\pi_i(a)`$ and $`p_i(a)`$ Two probabilities. |
+| $`\top,\ \log,\ -\pi_i^\top\log p_i`$ | $`\top`$ It's like, "I'm going to have to do it." $`\log`$ Take natural logarithms for each predicted probability. |
+| $`c,\ \lVert\theta\rVert_2^2`$ | $`c`$ is the regular weight, the square of the squares is the sum of all parameters squarely and is used to punish excessively large parameters. |
 
-**Count the three sub-items.** A board of players wins. $z_i=1$ . The network only predicts $v_i=0.4$ The first one is $0.36$ . Sets the probability of two moves $16/17$ and $1/17$ , network projections $1/2$ The second one is... $-(16/17+1/17)\log(1/2)=\log 2$ . If this parameter is punished by 0.01, the total loss is approximately $0.36+0.693+0.01=1.063$ . The search distribution and the end result of the training are recorded and the gradient is updated by the network that produces the forecast. [AlphaGo Zero Acceptable Text (1), PDF Page 6](https://discovery.ucl.ac.uk/id/eprint/10045895/1/agz_unformatted_nature.pdf#page=6)
+**Count the three sub-items.** A board of players wins. $`z_i=1`$ . The network only predicts $`v_i=0.4`$ The first one is $`0.36`$ . Sets the probability of two moves $`16/17`$ and $`1/17`$ , network projections $`1/2`$ The second one is... $`-(16/17+1/17)\log(1/2)=\log 2`$ . If this parameter is punished by 0.01, the total loss is approximately $`0.36+0.693+0.01=1.063`$ . The search distribution and the end result of the training are recorded and the gradient is updated by the network that produces the forecast. [AlphaGo Zero Acceptable Text (1), PDF Page 6](https://discovery.ucl.ac.uk/id/eprint/10045895/1/agz_unformatted_nature.pdf#page=6)
 
-**External acceptance determines who generates the next pair.** The candidate chess player and the incumbent use the same search settings to set 400 games, with an estimated success rate $\hat w$. Methods requires $\hat w>0.55$, so the 220 win is just 55% not enough and 221 is not passed. The player who passed the checker produces its own new experience and becomes the next round of comparison. The single win is for learning, and the 400-chamber confrontation is used to determine whether the version will be taken over. [Evaluator and self-playing, PDF page 24](https://discovery.ucl.ac.uk/id/eprint/10045895/1/agz_unformatted_nature.pdf#page=24)
+**External acceptance determines who generates the next pair.** The candidate chess player and the incumbent use the same search settings to set 400 games, with an estimated success rate $`\hat w`$. Methods requires $`\hat w>0.55`$, so the 220 win is just 55% not enough and 221 is not passed. The player who passed the checker produces its own new experience and becomes the next round of comparison. The single win is for learning, and the 400-chamber confrontation is used to determine whether the version will be taken over. [Evaluator and self-playing, PDF page 24](https://discovery.ucl.ac.uk/id/eprint/10045895/1/agz_unformatted_nature.pdf#page=24)
 
 #### Worked case: from a board position to the next generation of the player
 
-We'll find a plate first. $s_i$ . The network and the search decide which of these plates is actually to be used, and the distribution of the search preferences is to be recorded. The final round will be followed by a winning and winning record. When the next batch of training is taken, it will be known what is considered promising and how the drive will actually end. The new network will still have to use the same search configuration and the current competition. The race will pass the threshold version before replacing the old network in the next batch. The five steps will be able to position the recapitulation (1). **Chessman strategy to receive and take over data generation**. [Acceptance of Fig. 1 and Methods](https://discovery.ucl.ac.uk/id/eprint/10045895/1/agz_unformatted_nature.pdf#page=4)
+We'll find a plate first. $`s_i`$ . The network and the search decide which of these plates is actually to be used, and the distribution of the search preferences is to be recorded. The final round will be followed by a winning and winning record. When the next batch of training is taken, it will be known what is considered promising and how the drive will actually end. The new network will still have to use the same search configuration and the current competition. The race will pass the threshold version before replacing the old network in the next batch. The five steps will be able to position the recapitulation (1). **Chessman strategy to receive and take over data generation**. [Acceptance of Fig. 1 and Methods](https://discovery.ucl.ac.uk/id/eprint/10045895/1/agz_unformatted_nature.pdf#page=4)
 
 **How to read two pairs?** The threshold is designed to reduce the replacement caused by random fluctuations. The three-day version of the training is another chess display, different from AlphaGo Lee 's 100-0. [Original Methods, Evaluator and Self-Play](https://discovery.ucl.ac.uk/id/eprint/10045895/1/agz_unformatted_nature.pdf#page=24) · [The results of the competition with AlphaGo Lee](https://discovery.ucl.ac.uk/id/eprint/10045895/1/agz_unformatted_nature.pdf#page=8)
 
@@ -533,46 +533,46 @@ The 2024 version of The AI Scientist starts from a runnable, small-scale machine
 
 Staples a research idea. First make the experiment code, then run the evidence, and then decide on the next experiment. Next is the formalization of the Fig.1 intermediate experimental ring.
 
-$$
+```math
 \begin{aligned}
-c_i &= \mathrm{Implement}(c_{i-1},p_i,e_{<i}),\\
-o_i &= E(c_i,d_i,\xi_i), \qquad e_i=\mathrm{Record}(p_i,c_i,o_i),\\
+c_i &= \mathrm{Implement}(c_{i-1},p_i,e_{<i}),\\[0pt]
+o_i &= E(c_i,d_i,\xi_i), \qquad e_i=\mathrm{Record}(p_i,c_i,o_i),\\[0pt]
 p_{i+1} &= \mathrm{Replan}(p_i,e_{\le i}).
 \end{aligned}
-$$
+```
 
 | Symbol | Meaning |
 | --- | --- |
-| $i,\ p_i,\ p_{i+1}$ | $i$ Count the experiments in the same idea, starting with 1. $p_i$ This is the question, the contrast and the programme. $p_{i+1}$ It is the next plan that has been revised accordingly. |
-| $c_{i-1},\ c_i,\ \mathrm{Implement}$ | Implementation $\mathrm{Implement}$ Changed from previous code and configuration $c_i$ The first one. $c_0$ , that is, the original template. |
-| $E,\ d_i,\ \xi_i,\ o_i$ | $E$ Execute the code, $d_i$ It's the data. $\xi_i$ (xi) with running conditions such as random seeds, $o_i$ It is an indicator, log or error report. |
-| $e_i,\ \mathrm{Record}$ | Write this plan, code and observations into an experimental record. $e_i$ . |
-| $e_{<i},\ e_{\le i}$ | One pointer. $i$ The first entry is not yet recorded. |
-| $\mathrm{Replan}$ | On the basis of this plan and cumulative records, it is decided what to do next. |
+| $`i,\ p_i,\ p_{i+1}`$ | $`i`$ Count the experiments in the same idea, starting with 1. $`p_i`$ This is the question, the contrast and the programme. $`p_{i+1}`$ It is the next plan that has been revised accordingly. |
+| $`c_{i-1},\ c_i,\ \mathrm{Implement}`$ | Implementation $`\mathrm{Implement}`$ Changed from previous code and configuration $`c_i`$ The first one. $`c_0`$ , that is, the original template. |
+| $`E,\ d_i,\ \xi_i,\ o_i`$ | $`E`$ Execute the code, $`d_i`$ It's the data. $`\xi_i`$ (xi) with running conditions such as random seeds, $`o_i`$ It is an indicator, log or error report. |
+| $`e_i,\ \mathrm{Record}`$ | Write this plan, code and observations into an experimental record. $`e_i`$ . |
+| $`e_{<i},\ e_{\le i}`$ | One pointer. $`i`$ The first entry is not yet recorded. |
+| $`\mathrm{Replan}`$ | On the basis of this plan and cumulative records, it is decided what to do next. |
 
-**I'm going to put it in one of the experiments.** Set, for example, $p_1$ Compares the two initialization options. First, the template. $c_0$ A comparison of upper writing is obtained $c_1$ , and run with the same data split and random conditions. If $o_1$ It's just an error of record, and you'll have to fix the program to complete the same plan. $e_1$ You can save the training and validation curves. In this example track, if the difference occurs only once, $p_2$ Arrange for more pairings of seeds to be compared. The first line is done, the second line is put into slotting observations, and the third line is changed to a study.
+**I'm going to put it in one of the experiments.** Set, for example, $`p_1`$ Compares the two initialization options. First, the template. $`c_0`$ A comparison of upper writing is obtained $`c_1`$ , and run with the same data split and random conditions. If $`o_1`$ It's just an error of record, and you'll have to fix the program to complete the same plan. $`e_1`$ You can save the training and validation curves. In this example track, if the difference occurs only once, $`p_2`$ Arrange for more pairings of seeds to be compared. The first line is done, the second line is put into slotting observations, and the third line is changed to a study.
 
-The dotted line in the image is **Allowed feedback channel in the design**. If you try a number of external rounds according to the full study $t$ ,  $H_t$ This is a paper of ideas that can be read at this time. $H_{t+1}$ It is an updated file for subsequent experiments. **The actual experiment had a key set-up.** The original §6 explains that, in order to generate ideas in parallel, the author does not wait for the paper to be reviewed and rewritten. Therefore, experiments and reprogramming under the same idea can follow the middle loop, and the outer circle should be used as a designable channel. To explain that an accepted scientific improvement has entered a later round, there is a need to find entries, a basis for acceptance and subsequent practical decision-making. [Process Design §3 - 4](https://arxiv.org/pdf/2408.06292v3#page=4) · [Operational Settings §6](https://arxiv.org/pdf/2408.06292v3#page=13)
+The dotted line in the image is **Allowed feedback channel in the design**. If you try a number of external rounds according to the full study $`t`$ ,  $`H_t`$ This is a paper of ideas that can be read at this time. $`H_{t+1}`$ It is an updated file for subsequent experiments. **The actual experiment had a key set-up.** The original §6 explains that, in order to generate ideas in parallel, the author does not wait for the paper to be reviewed and rewritten. Therefore, experiments and reprogramming under the same idea can follow the middle loop, and the outer circle should be used as a designable channel. To explain that an accepted scientific improvement has entered a later round, there is a need to find entries, a basis for acceptance and subsequent practical decision-making. [Process Design §3 - 4](https://arxiv.org/pdf/2408.06292v3#page=4) · [Operational Settings §6](https://arxiv.org/pdf/2408.06292v3#page=13)
 
 #### Worked case: does another initialization lead to earlier modular-addition generalization?
 
-Look. §6.3 is the learning dynamics template. **Grokking** This means that, when training is already very effective, it takes longer to verify the accuracy rate to jump. The task here is to think of "give two numbers, predict what remains of them and divide them by a fixed number". **Initialization **It's the starting point for giving weights before training. So it's possible to ask if you want to align the other settings with the initial weight construction method, to verify whether the accuracy rate leaps forward. The baseline template uses a small Transformer to run four synthetic tasks, each with three random seeds, to record the training and validation curves, and to calculate the number of steps that have reached the perfect accuracy. The selected user-generated scripts are in Appendix D.7, and have 99% of the steps to verify the accuracy. $S_{99}$ Compare initialization options. The two thresholds correspond to the description of each indicator. [Original thesis §6.3](https://arxiv.org/pdf/2408.06292v3#page=16) · [Generating draft Appendix D.7, Indicators and results](https://arxiv.org/pdf/2408.06292v3#page=144)
+Look. §6.3 is the learning dynamics template. **Grokking** This means that, when training is already very effective, it takes longer to verify the accuracy rate to jump. The task here is to think of "give two numbers, predict what remains of them and divide them by a fixed number". **Initialization **It's the starting point for giving weights before training. So it's possible to ask if you want to align the other settings with the initial weight construction method, to verify whether the accuracy rate leaps forward. The baseline template uses a small Transformer to run four synthetic tasks, each with three random seeds, to record the training and validation curves, and to calculate the number of steps that have reached the perfect accuracy. The selected user-generated scripts are in Appendix D.7, and have 99% of the steps to verify the accuracy. $`S_{99}`$ Compare initialization options. The two thresholds correspond to the description of each indicator. [Original thesis §6.3](https://arxiv.org/pdf/2408.06292v3#page=16) · [Generating draft Appendix D.7, Indicators and results](https://arxiv.org/pdf/2408.06292v3#page=144)
 
 Here you can use an detectable calculator, using the definition of steps to be achieved as " no less than 99% recorded for the first time " . The lower formula is used for review. **Definitions used in this paper**.
 
-$$
+```math
 S_{99}(a,\sigma)=
 \min\{u\in\mathcal U:\mathrm{Acc}_{\mathrm{val}}(u;a,\sigma)\ge0.99\}.
-$$
+```
 
 | Symbol | Meaning |
 | --- | --- |
-| $a,\ \sigma$ | $a$ It's an initial weighting program. $\sigma$ (sigma) is a random seed for this training. |
-| $u,\ \mathcal U,\ u\in\mathcal U$ | $u$ Number of steps to update the parameters that have been done. $\mathcal U$ It's this time that the number of steps that actually recorded the results of the validation were gathered. $\in$ Read 'belong'. |
-| $\mathrm{Acc}_{\mathrm{val}}(u;a,\sigma)$ | Under the given initialization and seed, the first $u$ , the number of questions to be answered divided by the total number of questions. $\mathrm{val}$ refers to the authentication set. |
-| $\ge 0.99,\ \min,\ S_{99}(a,\sigma)$ | The threshold is no less than 99%. $\min$ Take the earliest steps to meet the threshold, by $S_{99}$ Keep this value, it's a training step. |
+| $`a,\ \sigma`$ | $`a`$ It's an initial weighting program. $`\sigma`$ (sigma) is a random seed for this training. |
+| $`u,\ \mathcal U,\ u\in\mathcal U`$ | $`u`$ Number of steps to update the parameters that have been done. $`\mathcal U`$ It's this time that the number of steps that actually recorded the results of the validation were gathered. $`\in`$ Read 'belong'. |
+| $`\mathrm{Acc}_{\mathrm{val}}(u;a,\sigma)`$ | Under the given initialization and seed, the first $`u`$ , the number of questions to be answered divided by the total number of questions. $`\mathrm{val}`$ refers to the authentication set. |
+| $`\ge 0.99,\ \min,\ S_{99}(a,\sigma)`$ | The threshold is no less than 99%. $`\min`$ Take the earliest steps to meet the threshold, by $`S_{99}`$ Keep this value, it's a training step. |
 
-**Adds two records.** The same run, the 800th step validation accuracy rate 98%, the 900th step recorded 99.1% for the first time, so $S_{99}=900$ . These numbers only indicate the number of steps recorded for the first time. If the operating cap is not met, the default is indicated as agreed. When you read the table in which the appendix is generated, check how it samples the records and aggregates the seeds.
+**Adds two records.** The same run, the 800th step validation accuracy rate 98%, the 900th step recorded 99.1% for the first time, so $`S_{99}=900`$ . These numbers only indicate the number of steps recorded for the first time. If the operating cap is not met, the default is indicated as agreed. When you read the table in which the appendix is generated, check how it samples the records and aggregates the seeds.
 
 **In the case of restitution according to the actual product.** The proposed comparison is based on initialization, and the output should be an implementable configuration and a comparison of its results. The resulting script leaves a curve and values for PyTorch default, Xavier, He and orthopaedic scenarios, on the basis of which the text text sets out the determination of the speed of collection. Only published products can be viewed along the original paper and the appendix. If a log-by-recycling has led to the next experiment, it is necessary to continue to match the specific logs and scripts. [Original paper §6.3 and Appendix D.7](https://arxiv.org/pdf/2408.06292v3#page=144)
 
@@ -612,25 +612,25 @@ Gives a machine learning engineering topic that can be evaluated by machine, suc
 
 OpenMLE-Evo's search tree contains a trial machine learning program and experience card for each node. When you select the next round of parent programs, the combination quality, relative parent upgrading, and the novelity of the method are used to sort out the probability of sampling. The next version is based on the the thesis (4) rewrite.
 
-$$
+```math
 u_i=\lambda_s q_i+\lambda_\Delta\widetilde{\Delta}_i+\lambda_n\nu_i,\qquad
 \Pr(i\mid\mathcal I)=
 \frac{\exp(u_i/T)}{\sum_{j\in\mathcal I}\exp(u_j/T)}.
-$$
+```
 
 | Symbol | Meaning |
 | --- | --- |
-| $i,\ j,\ \mathcal I$ | $i$ is the current node number, $j$ Gathering through this selected node $\mathcal I$ . |
-| $q_i$ | Quality score. The larger the greater the better, the smaller the group of comparable authentication fractions, the smaller they zoom in to 0 to 1. If the same fractions are equal, then the original one is 0.5. $\tilde s_i$ . |
-| $\widetilde{\Delta}_i$ | The extraction is being scaled up to the maximum up in a pool, compared to the best effective parent. When there is no improvement, no effective parent selection, or no increase in a collection, the wave sign means that it has been scaled. |
-| $\nu_i$ | The method community's novel scores. The number of the same method community experience cards has been recorded, and the square root of the " one plus this " is the penultimate. |
-| $\lambda_s,\ \lambda_\Delta,\ \lambda_n,\ u_i$ | Each of the three coefficients is weighted by quality, progress, and innovation. $u_i$ It's a total utility. It's original. $U_i$ . |
-| $T,\ \exp(u_i/T),\ \sum$ | $T>0$ It's sample temperature, as recorded in the original $\tau$ . The index converts the utility to a positive weight, the denominator of which aggregates the weights of all available extracts. |
-| $\Pr(i\mid\mathcal I)$ | Gathering. $\mathcal I$ Into the node $i$ Probability. |
+| $`i,\ j,\ \mathcal I`$ | $`i`$ is the current node number, $`j`$ Gathering through this selected node $`\mathcal I`$ . |
+| $`q_i`$ | Quality score. The larger the greater the better, the smaller the group of comparable authentication fractions, the smaller they zoom in to 0 to 1. If the same fractions are equal, then the original one is 0.5. $`\tilde s_i`$ . |
+| $`\widetilde{\Delta}_i`$ | The extraction is being scaled up to the maximum up in a pool, compared to the best effective parent. When there is no improvement, no effective parent selection, or no increase in a collection, the wave sign means that it has been scaled. |
+| $`\nu_i`$ | The method community's novel scores. The number of the same method community experience cards has been recorded, and the square root of the " one plus this " is the penultimate. |
+| $`\lambda_s,\ \lambda_\Delta,\ \lambda_n,\ u_i`$ | Each of the three coefficients is weighted by quality, progress, and innovation. $`u_i`$ It's a total utility. It's original. $`U_i`$ . |
+| $`T,\ \exp(u_i/T),\ \sum`$ | $`T>0`$ It's sample temperature, as recorded in the original $`\tau`$ . The index converts the utility to a positive weight, the denominator of which aggregates the weights of all available extracts. |
+| $`\Pr(i\mid\mathcal I)`$ | Gathering. $`\mathcal I`$ Into the node $`i`$ Probability. |
 
-**Inserts two procedures.** Sets three weights and temperature to 1. Program A splits $(1,0,0.5)$, program B to $(0,1,1)$. Model 1 gets $u_A=1.5,u_B=2$. Model 2 calculates the probability of drawings of A and B is about **0.378, 0.622**. Although A has a high quality score, B ' s relative upgrading and methodological novelty makes it more likely to be selected to continue the test under this setting. Here is the calculation value, and the author offers different options for the standardization of quality and progress.
+**Inserts two procedures.** Sets three weights and temperature to 1. Program A splits $`(1,0,0.5)`$, program B to $`(0,1,1)`$. Model 1 gets $`u_A=1.5,u_B=2`$. Model 2 calculates the probability of drawings of A and B is about **0.378, 0.622**. Although A has a high quality score, B ' s relative upgrading and methodological novelty makes it more likely to be selected to continue the test under this setting. Here is the calculation value, and the author offers different options for the standardization of quality and progress.
 
-**Go back to the round in the map.** N7 of 0.712 is a test test run before writing an Empirical Card. Figure 2 Recapitulation of three fractions based on cards,3 drawn from N5, N6, N7 to N7. Medium $p_{\mathrm{parent}}$ It's the father's procedure. $m_{\mathrm{selected}}$ It's an elected experience, V and H, which refers to vertical ancestors and horizontal compatriots. The modifyr reads these two, writing N8 using the Improve (improver) operation. Figure 0.739 is the score for a sub-program test run. Other search operations include Draft (draft), Debug (correction) and Crossover (combined branch), which are eventually submitted for selection on the basis of valid candidate validation results. [Original Fig. 9, §5.1 - 5.4](https://arxiv.org/pdf/2607.28568v1#page=16) · [Three definitions, Appendix C.4](https://arxiv.org/pdf/2607.28568v1#page=56)
+**Go back to the round in the map.** N7 of 0.712 is a test test run before writing an Empirical Card. Figure 2 Recapitulation of three fractions based on cards,3 drawn from N5, N6, N7 to N7. Medium $`p_{\mathrm{parent}}`$ It's the father's procedure. $`m_{\mathrm{selected}}`$ It's an elected experience, V and H, which refers to vertical ancestors and horizontal compatriots. The modifyr reads these two, writing N8 using the Improve (improver) operation. Figure 0.739 is the score for a sub-program test run. Other search operations include Draft (draft), Debug (correction) and Crossover (combined branch), which are eventually submitted for selection on the basis of valid candidate validation results. [Original Fig. 9, §5.1 - 5.4](https://arxiv.org/pdf/2607.28568v1#page=16) · [Three definitions, Appendix C.4](https://arxiv.org/pdf/2607.28568v1#page=56)
 
 #### How a real task uses prior results
 
