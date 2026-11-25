@@ -535,7 +535,7 @@ Staples a research idea. First make the experiment code, then run the evidence, 
 
 ```math
 \begin{aligned}
-c_i &= \mathrm{Implement}(c_{i-1},p_i,e_{<i}),\\[0pt]
+c_i &= \mathrm{Implement}(c_{i-1},p_i,e_{\lt i}),\\[0pt]
 o_i &= E(c_i,d_i,\xi_i), \qquad e_i=\mathrm{Record}(p_i,c_i,o_i),\\[0pt]
 p_{i+1} &= \mathrm{Replan}(p_i,e_{\le i}).
 \end{aligned}
@@ -547,7 +547,7 @@ p_{i+1} &= \mathrm{Replan}(p_i,e_{\le i}).
 | $`c_{i-1},\ c_i,\ \mathrm{Implement}`$ | Implementation $`\mathrm{Implement}`$ Changed from previous code and configuration $`c_i`$ The first one. $`c_0`$ , that is, the original template. |
 | $`E,\ d_i,\ \xi_i,\ o_i`$ | $`E`$ Execute the code, $`d_i`$ It's the data. $`\xi_i`$ (xi) with running conditions such as random seeds, $`o_i`$ It is an indicator, log or error report. |
 | $`e_i,\ \mathrm{Record}`$ | Write this plan, code and observations into an experimental record. $`e_i`$ . |
-| $`e_{<i},\ e_{\le i}`$ | One pointer. $`i`$ The first entry is not yet recorded. |
+| $`e_{\lt i},\ e_{\le i}`$ | One pointer. $`i`$ The first entry is not yet recorded. |
 | $`\mathrm{Replan}`$ | On the basis of this plan and cumulative records, it is decided what to do next. |
 
 **I'm going to put it in one of the experiments.** Set, for example, $`p_1`$ Compares the two initialization options. First, the template. $`c_0`$ A comparison of upper writing is obtained $`c_1`$ , and run with the same data split and random conditions. If $`o_1`$ It's just an error of record, and you'll have to fix the program to complete the same plan. $`e_1`$ You can save the training and validation curves. In this example track, if the difference occurs only once, $`p_2`$ Arrange for more pairings of seeds to be compared. The first line is done, the second line is put into slotting observations, and the third line is changed to a study.
