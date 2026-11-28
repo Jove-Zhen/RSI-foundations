@@ -1,6 +1,17 @@
 # 递归自我改进（RSI）
 
-[10 分钟 RSI 项目页](https://jove-zhen.github.io/RSI-foundations/) · [English overview](../README.md)
+[English overview](../README.md)
+
+## 10 分钟读懂 RSI
+
+**[打开图文项目页（英文）](https://jove-zhen.github.io/RSI-foundations/)**
+
+一个系统会修改答案，什么时候才能说它在改进自己的改进方式？我们把研究笔记中的定义、论文比较和实验思路放在同一个页面，用一个贯穿始终的案例追踪改动如何被接受、保留，以及怎样进入下一轮。每部分都可以单独阅读，详细的公式和论文分析可直接跳转到仓库的中英文笔记。
+
+- **0–2 分钟 · 什么算递归自我改进？** 用一个检查输入是否被重复使用的规则，依次看懂单次修订、跨任务复用、递归继承和递归进步各自需要什么证据。[工作定义与案例](https://jove-zhen.github.io/RSI-foundations/#definition)
+- **2–5 分钟 · 四类方法把什么交给了下一阶段？** 对照 Self-Refine、Darwin Gödel Machine、STaR 和 The AI Scientist，逐一追踪改动的对象、留存的产物和后续的使用方式。[四个代表案例](https://jove-zhen.github.io/RSI-foundations/#cases)
+- **5–8 分钟 · 怎样检验递归进步？** 从同一个求解器出发，在相同预算下对比两轮改进，一轮使用更新后的检查器与日志，另一轮使用旧版本。最后在同一批留出任务上评估两个后继系统。[配对实验设计](https://jove-zhen.github.io/RSI-foundations/#experiment)
+- **8–10 分钟 · 想深入时读哪一段？** 按问题跳转到中英文笔记，核对形式化定义、论文实验设置和结论的证据边界。[延伸阅读路线](https://jove-zhen.github.io/RSI-foundations/#notes)
 
 ## 项目概览
 

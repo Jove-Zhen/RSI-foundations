@@ -1,6 +1,17 @@
 # Recursive Self-Improvement in AI
 
-[10-minute project page](https://jove-zhen.github.io/RSI-foundations/) · [中文版](Chinese/README.md)
+[中文版](Chinese/README.md)
+
+## Understand RSI in 10 minutes
+
+**[Open the visual guide](https://jove-zhen.github.io/RSI-foundations/)**
+
+When does a system that revises its work start to improve the way it improves? Our project page follows one accepted change across tasks and improvement rounds. It puts a compact example, four paper comparisons, and a proposed experiment on a single page, with links to the full notation and paper analyses in this repository.
+
+- **0–2 min · What counts as RSI?** Follow a checker that catches a repeated input. See what evidence distinguishes correcting one answer, reusing the check, carrying it into another improvement round, and improving that next round. [Working definition and example](https://jove-zhen.github.io/RSI-foundations/#definition)
+- **2–5 min · What carries forward?** Compare Self-Refine, the Darwin Gödel Machine, STaR, and The AI Scientist by what changes, what survives, and what the next stage receives. [Four representative cases](https://jove-zhen.github.io/RSI-foundations/#cases)
+- **5–8 min · How could we test recursive progress?** Follow a paired experiment that changes access to the accepted checker and its logs, matches the starting solver and budget, and scores both successors on held-out tasks. [Proposed experiment](https://jove-zhen.github.io/RSI-foundations/#experiment)
+- **8–10 min · Where can I go deeper?** Find the sections that formalize the improvement loop, explain the experimental setups, and examine what each paper's evidence supports. The guide links to both English and Chinese notes. [Reading map](https://jove-zhen.github.io/RSI-foundations/#notes)
 
 ## Overview
 
