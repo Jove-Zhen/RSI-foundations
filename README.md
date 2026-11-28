@@ -1,6 +1,6 @@
 # Recursive Self-Improvement in AI
 
-[中文版](Chinese/README.md)
+[10-minute project page](https://jove-zhen.github.io/RSI-foundations/) · [中文版](Chinese/README.md)
 
 ## Overview
 

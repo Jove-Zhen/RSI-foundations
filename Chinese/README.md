@@ -1,6 +1,6 @@
 # 递归自我改进（RSI）
 
-[English overview](../README.md)
+[10 分钟 RSI 项目页](https://jove-zhen.github.io/RSI-foundations/) · [English overview](../README.md)
 
 ## 项目概览
 
