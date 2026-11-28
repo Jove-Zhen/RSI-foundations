@@ -1,10 +1,24 @@
 # 递归自我改进（RSI）
 
+> 🌐 **[10 分钟读懂 RSI · 图文项目页（英文）](https://jove-zhen.github.io/RSI-foundations/)**
+>
+> 从一个贯穿全文的案例出发，理解 RSI 的定义，比较四篇代表论文，看看如何设计实验检验递归进步。
+
 [English overview](../README.md)
 
-## 10 分钟读懂 RSI
+## 📚 我们的核心研究笔记
 
-**[打开图文项目页（英文）](https://jove-zhen.github.io/RSI-foundations/)**
+**这两份笔记是我们自己的总结与分析，也是整个项目的核心内容。** 我们用公式和例子解释 RSI 的基础概念，并对照代表论文的原图和实验，分析各方法承接了什么、各项结论有哪些证据。
+
+### [RSI-Foundations.md](RSI-Foundations.md)
+
+从 RSI 的历史和操作定义切入，结合公式、符号和例子解释提议、反馈、优化循环，以及最小 RSI 和递归进步的判据。笔记也介绍了方法分类、应用和开放问题。 [English](../RSI-Foundations.md)
+
+### [Representative-Paper-Analyses.md](Representative-Papers/Representative-Paper-Analyses.md)
+
+对照论文原图，逐篇拆解方法、实验设置和对照条件，追踪改动如何进入下一轮，以及实验结果能支持哪些判断。文末附有原论文索引。 [English](../Representative-Papers/Representative-Paper-Analyses.md)
+
+## 10 分钟阅读路线
 
 一个系统会修改答案，什么时候才能说它在改进自己的改进方式？我们把研究笔记中的定义、论文比较和实验思路放在同一个页面，用一个贯穿始终的案例追踪改动如何被接受、保留，以及怎样进入下一轮。每部分都可以单独阅读，详细的公式和论文分析可直接跳转到仓库的中英文笔记。
 
@@ -15,12 +29,9 @@
 
 ## 项目概览
 
-递归自我改进（Recursive Self-Improvement，RSI）关注一项经过验证、被接受的改动，如何作为后续改进轮的起点，并实际参与下一次改进。一次任务内的输出修订、后续任务对改动的复用，以及后续改进轮对改动的依赖，各自需要不同的证据。要进一步主张「递归进步」，还要验证继承的改动能否让后续改进过程产生质量更高的后继版本。参见 [综述 §3 与 Fig. 3](https://lee1003-lee.github.io/Awesome-RSI-Research/assets/rsi-survey.pdf#page=5)。
+递归自我改进（Recursive Self-Improvement，RSI）关注一项经过验证、被接受的改动，如何作为后续改进轮的起点，并实际参与下一次改进。一次任务内的输出修订、后续任务对改动的复用，以及后续改进轮对改动的依赖，各自需要不同的证据。要进一步主张「递归进步」，还要验证继承的改动能否让后续改进过程产生质量更高的后继版本。
 
 本项目从 RSI 的历史、操作定义和**提议 → 反馈 → 优化**三阶段入手，把综述的公式和符号放回具体案例，再按四类改动对象拆解代表论文。每篇主线论文从问题定义、实验设置、输入输出与约束出发，追踪候选如何生成、怎样验收、哪些结果会进入下一轮，并讨论现有对照能支持什么结论。贯穿材料的比较问题是，在任务、预算和评价口径一致时，能否把后续收益归因于被继承的改动？
-
-- **基础与综述** · `RSI-Foundations.md` 介绍历史、三阶段形式化、最小 RSI 和递归进步的判据、分类、应用与开放问题。[中文](RSI-Foundations.md) · [English](../RSI-Foundations.md)
-- **代表论文拆解** · `Representative-Paper-Analyses.md` 对照论文原图解读方法与实验，并附完整文献索引。[中文](Representative-Papers/Representative-Paper-Analyses.md) · [English](../Representative-Papers/Representative-Paper-Analyses.md)
 
 ## 分类与代表论文
 

@@ -1,10 +1,24 @@
 # Recursive Self-Improvement in AI
 
+> 🌐 **[Understand RSI in 10 minutes · Project page](https://jove-zhen.github.io/RSI-foundations/)**
+>
+> A visual introduction to the core concepts, four representative papers, and an experiment for testing recursive progress.
+
 [中文版](Chinese/README.md)
 
-## Understand RSI in 10 minutes
+## 📚 Our core research notes
 
-**[Open the visual guide](https://jove-zhen.github.io/RSI-foundations/)**
+**These two notes are our own synthesis and analysis, and they are the core of this project.** We explain RSI's foundations, compare how representative methods work, and assess what their experiments establish.
+
+### [RSI-Foundations.md](RSI-Foundations.md)
+
+Follow the history of RSI and the proposal, feedback, and optimization loop. Equations and worked examples explain the notation, minimal RSI, and recursive progress. The notes also cover the taxonomy, applications, and open questions.
+
+### [Representative-Paper-Analyses.md](Representative-Papers/Representative-Paper-Analyses.md)
+
+Read the original figures alongside our explanations of the methods, experimental setups, and comparisons. Each analysis follows what changes, what the next round receives, and what the evidence supports. The bibliography links to the original papers.
+
+## 10-minute reading route
 
 When does a system that revises its work start to improve the way it improves? Our project page follows one accepted change across tasks and improvement rounds. It puts a compact example, four paper comparisons, and a proposed experiment on a single page, with links to the full notation and paper analyses in this repository.
 
@@ -15,12 +29,9 @@ When does a system that revises its work start to improve the way it improves? O
 
 ## Overview
 
-Recursive self-improvement (RSI) asks how a verified, accepted change can become the starting point of a later improvement round and actually influence that round. Revising an output within one task, reusing an accepted change on a new task, and using that change in a later improvement round each require different evidence. A stronger claim of **recursive progress** requires evidence that the inherited change helps the later process produce better successors. [Survey §3 and Fig. 3](https://lee1003-lee.github.io/Awesome-RSI-Research/assets/rsi-survey.pdf#page=5)
+Recursive self-improvement (RSI) asks how a verified, accepted change can become the starting point of a later improvement round and actually influence that round. Revising an output within one task, reusing an accepted change on a new task, and using that change in a later improvement round each require different evidence. A stronger claim of **recursive progress** requires evidence that the inherited change helps the later process produce better successors.
 
 This project traces the origins of RSI, explains the **proposal → feedback → optimization** loop with equations and worked examples, and uses four classes of methods to show what the loop can change. The paper analyses follow each method from its problem definition, experimental setup, inputs, outputs, and constraints through candidate generation, evaluation, and the handoff to the next round. Across the cases, the central question is whether gains can be attributed to the inherited change when tasks, budgets, and evaluation criteria are held constant.
-
-- **Foundations and survey** covers the history, operational definition, notation, criteria for minimal RSI and recursive progress, taxonomy, applications, and open questions. [RSI-Foundations.md](RSI-Foundations.md)
-- **Representative paper analyses** pairs the original figures with explanations of methods and experimental comparisons. It also includes a bibliography with links to the papers. [Representative-Paper-Analyses.md](Representative-Papers/Representative-Paper-Analyses.md)
 
 ## Taxonomy and representative papers
 
