@@ -118,6 +118,32 @@ h1 {
   line-height: 1.45;
 }
 
+.repo-actions {
+  align-items: center;
+  gap: 8px 16px;
+  margin-bottom: 28px;
+}
+
+.repo-actions a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 7px 4px;
+  color: var(--link);
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.repo-actions .repo-primary {
+  padding-inline: 14px;
+  border-radius: 4px;
+  background: var(--link);
+  color: var(--paper);
+  text-decoration: none;
+}
+
+.repo-actions .repo-primary:hover { background: #142d21; }
+
 .reading-route {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
