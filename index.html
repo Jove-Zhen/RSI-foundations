@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="A 10-minute introduction to recursive self-improvement in AI, based on our research notes, paper comparisons, and proposed experiments.">
+  <meta property="og:title" content="Understand RSI in 10 minutes · RSI Foundations">
+  <meta property="og:description" content="Our working definition, four paper comparisons, and a test for whether an AI system improves how it improves.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://jove-zhen.github.io/RSI-foundations/">
+  <title>Understand RSI in 10 minutes · RSI Foundations</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="shell header-row">
+      <a class="wordmark" href="#main">RSI Foundations</a>
+      <nav aria-label="Page navigation">
+        <a href="#definition">Definition</a>
+        <a href="#cases">Cases</a>
+        <a href="#experiment">Experiment</a>
+        <a href="#notes">Notes</a>
+      </nav>
+      <a class="repo-link" href="https://github.com/Jove-Zhen/RSI-foundations">GitHub</a>
+    </div>
+  </header>
+
+  <main id="main" class="shell">
+    <section class="intro" aria-labelledby="title">
+      <p class="kicker">Our research notes</p>
+      <h1 id="title">Understand RSI<br class="desktop-break"> in 10 minutes</h1>
+      <p class="lede">Recursive self-improvement asks whether an AI system can carry an accepted change forward and use it to improve again. Our notes follow that handoff through four papers and turn it into an experiment you could run.</p>
+      <nav class="reading-route" aria-label="10-minute reading route">
+        <a href="#definition"><span>0–2 min</span>What counts as RSI</a>
+        <a href="#cases"><span>2–5 min</span>Four cases</a>
+        <a href="#experiment"><span>5–8 min</span>A test we would run</a>
+        <a href="#notes"><span>8–10 min</span>Our Markdown notes</a>
+      </nav>
+    </section>
+
+    <section id="definition" class="section" aria-labelledby="definition-title">
+      <div class="section-intro">
+        <p class="kicker">0–2 min · Working definition</p>
+        <h2 id="definition-title">What makes an improvement recursive?</h2>
+        <p>In recursive self-improvement (RSI), a later improvement round starts from an accepted change and actually uses it when proposing, checking, or selecting another change.</p>
+      </div>
+      <div class="subsection">
+        <h3>What happens in one round</h3>
+        <p>A task run uses the current system to produce an answer or action. An improvement round changes the system that runs the task. It starts with a version and its records, proposes an edit, and tests the candidate against a baseline. An acceptance rule decides which version and records to retain.</p>
+      </div>
+      <div class="subsection">
+        <h3>One checker, four kinds of evidence</h3>
+        <p>Suppose a solver submits a calculation that uses one of its input numbers twice. We can trace what happens when the system catches the error and decides what to keep.</p>
+        <dl class="distinctions">
+          <div><dt>Local revision</dt><dd>Feedback catches the repeated number. The solver corrects this answer.</dd></div>
+          <div><dt>Persistent reuse</dt><dd>A check that catches repeated inputs passes evaluation, is saved, and is used on a new task.</dd></div>
+          <div><dt>Recursive inheritance</dt><dd>A later improvement round uses the accepted check’s rejection logs to revise the solver’s prompt. This is evidence for minimal RSI even if the new prompt is ultimately rejected.</dd></div>
+          <div><dt>Recursive progress</dt><dd>A controlled comparison shows that giving the later round access to the retained check and logs helps it produce a better successor.</dd></div>
+        </dl>
+      </div>
+      <p class="citation"><a href="https://github.com/Jove-Zhen/RSI-foundations/blob/main/RSI-Foundations.md">Our notes · RSI-Foundations.md, sections 1–3</a></p>
+    </section>
+
+    <section id="cases" class="section" aria-labelledby="cases-title">
+      <div class="section-intro">
+        <p class="kicker">2–5 min · Case comparison</p>
+        <h2 id="cases-title">What does each paper hand off?</h2>
+        <p>We group the cases by what they change: an answer, an agent, a training-data generator, or an experiment plan. In each case, the handoff is what the next stage actually receives.</p>
+      </div>
+      <div class="reading-list case-list">
+        <article>
+          <div><p class="case-category">Behavior</p><h3>Self-Refine</h3></div>
+          <div>
+            <dl class="case-details">
+              <div><dt>Setup</dt><dd>A fixed language model drafts an answer, critiques it, and revises it. An external test or rating evaluates the result.</dd></div>
+              <div><dt>Handoff</dt><dd>The draft and its critique guide the next revision of the same task.</dd></div>
+              <div><dt>What the evidence supports</dt><dd>Better final answers support within-task improvement. To isolate the effect of the critique, compare with fresh samples under the same call budget.</dd></div>
+            </dl>
+            <p class="papers"><a href="https://arxiv.org/abs/2303.17651" aria-label="Self-Refine original paper">Original paper</a><a href="https://github.com/Jove-Zhen/RSI-foundations/blob/main/Representative-Papers/Representative-Paper-Analyses.md#1-behavior-evolution-refining-answers-and-retaining-reusable-experience">Our behavior notes</a></p>
+          </div>
+        </article>
+        <article>
+          <div><p class="case-category">Agent systems</p><h3>Darwin Gödel Machine</h3></div>
+          <div>
+            <dl class="case-details">
+              <div><dt>Setup</dt><dd>An agent edits its own code. The resulting agent is evaluated on coding tasks, with the base language model fixed.</dd></div>
+              <div><dt>Handoff</dt><dd>A selected agent from the archive becomes a parent and writes the next modification. The lineage records which version took over.</dd></div>
+              <div><dt>What the evidence supports</dt><dd>The lineage shows actual use of selected versions. To test whether an evolved agent is a better improver, give it and the initial agent the same target code, logs, edit request, and budget. Then compare the agents they produce.</dd></div>
+            </dl>
+            <p class="papers"><a href="https://arxiv.org/abs/2505.22954" aria-label="Darwin Gödel Machine original paper">Original paper</a><a href="https://github.com/Jove-Zhen/RSI-foundations/blob/main/Representative-Papers/Representative-Paper-Analyses.md#2-agent-system-evolution-changing-how-the-agent-operates">Our agent-system notes</a></p>
+          </div>
+        </article>
+        <article>
+          <div><p class="case-category">Models and data</p><h3>STaR</h3></div>
+          <div>
+            <dl class="case-details">
+              <div><dt>Setup</dt><dd>The Self-Taught Reasoner writes a rationale and an answer. The known answer lets the pipeline filter examples. For initially incorrect answers, it can supply the answer as a hint while constructing training data.</dd></div>
+              <div><dt>Handoff</dt><dd>The selected examples train a model that takes over rationale generation in the next round. Evaluation supplies the question without its correct answer.</dd></div>
+              <div><dt>What the evidence supports</dt><dd>The trained model demonstrably takes over data generation. To compare two generators, match sample count, task difficulty, and training steps, then evaluate models trained from the same initial weights.</dd></div>
+            </dl>
+            <p class="papers"><a href="https://arxiv.org/abs/2203.14465" aria-label="STaR original paper">Original paper</a><a href="https://github.com/Jove-Zhen/RSI-foundations/blob/main/Representative-Papers/Representative-Paper-Analyses.md#3-model-and-data-evolution-the-current-model-supplies-the-next-training-round">Our models and data notes</a></p>
+          </div>
+        </article>
+        <article>
+          <div><p class="case-category">Research processes</p><h3>The AI Scientist</h3></div>
+          <div>
+            <dl class="case-details">
+              <div><dt>Setup</dt><dd>The agent starts from runnable research code, edits it to run an experiment, and records the result. An error can trigger a repair; a valid result can motivate a change to the experimental plan.</dd></div>
+              <div><dt>Handoff</dt><dd>An experiment’s results and the resulting plan can carry into the next experiment within the same project.</dd></div>
+              <div><dt>What the evidence supports</dt><dd>A completed run establishes that the code ran. To establish a change in research practice, trace a specific result to a changed hypothesis or control and verify that the next run implements it.</dd></div>
+            </dl>
+            <p class="papers"><a href="https://arxiv.org/abs/2408.06292v3" aria-label="The AI Scientist original paper">Original paper</a><a href="https://github.com/Jove-Zhen/RSI-foundations/blob/main/Representative-Papers/Representative-Paper-Analyses.md#4-research-process-evolution-using-experiments-to-inform-the-next-research-decision">Our research-process notes</a></p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="experiment" class="section" aria-labelledby="experiment-title">
+      <div class="section-intro">
+        <p class="kicker">5–8 min · A comparison we would run</p>
+        <h2 id="experiment-title">Does inheritance improve the next round?</h2>
+        <p>Suppose a solver has accepted an improved checker and saved its rejection logs. We want to test whether giving a later improvement round that checker and those logs helps it produce a better solver.</p>
+      </div>
+      <div class="subsection">
+        <h3>Match the starting point and vary inheritance</h3>
+        <p>In each pair, give both rounds the same solver to edit, the same edit request, the same environment, and the same call budget. Each round outputs a new solver, which we call a successor.</p>
+        <dl class="conditions">
+          <div><dt>With inheritance</dt><dd>The improvement round receives the accepted checker and its structured rejection logs.</dd></div>
+          <div><dt>Previous state</dt><dd>The improvement round receives the previous checker and its original logs.</dd></div>
+        </dl>
+      </div>
+      <div class="subsection">
+        <h3>Score what each round produces</h3>
+        <p>Use one independent scoring rule and the same held-out tasks for both successors. Keep those tasks separate from the tasks used to propose or select changes.</p>
+        <div class="measure">
+          <p class="measure-label">Average paired difference</p>
+          <p class="equation"><i>Δ</i> = mean [<i>Q</i>(<i>Y</i><sub>keep</sub>) − <wbr><i>Q</i>(<i>Y</i><sub>previous</sub>)]</p>
+          <p><i>Y</i><sub>keep</sub> and <i>Y</i><sub>previous</sub> are the successors from the two conditions. <i>Q</i> scores a successor on the held-out tasks. In two illustrative pairs, scores of 70 versus 65 and 81 versus 80 give gaps of 5 and 1. Their mean, <i>Δ</i>, is 3 points.</p>
+        </div>
+      </div>
+      <div class="subsection">
+        <h3>Interpret the result</h3>
+        <p>Read the logs to see where inheritance affected a proposal or test. Repeat the comparison with multiple paired seeds and report how much the score gap varies. A reliable positive gap supports a benefit from the checker and logs together under these conditions. To estimate the logs’ contribution, keep the checker fixed and vary only whether the logs are available.</p>
+      </div>
+      <p class="citation"><a href="https://github.com/Jove-Zhen/RSI-foundations/blob/main/RSI-Foundations.md">Our notes · Matched comparisons and worked examples, sections 3 and 8</a></p>
+    </section>
+
+    <section id="notes" class="section" aria-labelledby="notes-title">
+      <div class="section-intro">
+        <p class="kicker">8–10 min · Our Markdown notes</p>
+        <h2 id="notes-title">Choose a question to follow in the notes.</h2>
+        <p>Each entry tells you which document to open and what it helps you check. The English and Chinese editions cover the same material.</p>
+      </div>
+      <div class="reading-list note-list">
+        <article>
+          <div><h3>How do I classify a learning loop?</h3><code>RSI-Foundations.md</code></div>
+          <div><p>Sections 1–3 define the task boundary, system state, acceptance, and cross-round use. Section 8 gives worked examples, including a saved version that was used to solve tasks and one that was used to revise the system again.</p><p class="papers"><a href="https://github.com/Jove-Zhen/RSI-foundations/blob/main/RSI-Foundations.md">English foundations</a><a href="https://github.com/Jove-Zhen/RSI-foundations/blob/main/Chinese/RSI-Foundations.md" lang="zh-Hans">中文基础笔记</a></p></div>
+        </article>
+        <article>
+          <div><h3>What does a paper’s experiment establish?</h3><code>Representative-Paper-Analyses.md</code></div>
+          <div><p>Use sections 1–4 to follow the research question, inputs, tested changes, and outputs of a representative experiment. The notes pair the original figures with our reading and propose controls where the evidence leaves a question open.</p><p class="papers"><a href="https://github.com/Jove-Zhen/RSI-foundations/blob/main/Representative-Papers/Representative-Paper-Analyses.md">English paper analyses</a><a href="https://github.com/Jove-Zhen/RSI-foundations/blob/main/Chinese/Representative-Papers/Representative-Paper-Analyses.md" lang="zh-Hans">中文论文拆解</a></p></div>
+        </article>
+        <article>
+          <div><h3>Which components can change together?</h3></div>
+          <div><p>Hyperagents follows the task-solving program and the program that modifies it. SkillRL follows the skill library learned from experience and the policy trained to use it. Both notes cover version updates, experimental controls, and limits of the reported evidence.</p><p class="papers"><a href="https://github.com/Jove-Zhen/RSI-foundations/blob/main/Representative-Papers/Hyperagents.md">Hyperagents.md</a><a href="https://github.com/Jove-Zhen/RSI-foundations/blob/main/Representative-Papers/SkillRL.md">SkillRL.md</a><a href="https://github.com/Jove-Zhen/RSI-foundations/blob/main/Chinese/README.md" lang="zh-Hans">中文目录</a></p></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section sources" aria-labelledby="sources-title">
+      <h2 id="sources-title">References</h2>
+      <p>The operational framework and four-family taxonomy used in our notes come from Li et al.’s survey.</p>
+      <ul class="source-links">
+        <li><a href="https://lee1003-lee.github.io/Awesome-RSI-Research/assets/rsi-survey.pdf">Towards AI That Improves Itself: A Survey of Recursive Self-Improvement</a></li>
+        <li><a href="https://github.com/Lee1003-lee/Awesome-RSI-Research">Awesome RSI Research</a></li>
+      </ul>
+      <details>
+        <summary>Original survey figures</summary>
+        <ul class="source-links">
+          <li><a href="assets/framework.png">Operational framework</a></li>
+          <li><a href="assets/taxonomy.png">Taxonomy map</a></li>
+          <li><a href="assets/evidence.png">Evidence ladder</a></li>
+        </ul>
+      </details>
+    </section>
+  </main>
+
+  <footer class="shell"><span>RSI Foundations</span><a href="#main">Back to top</a></footer>
+</body>
+</html>
